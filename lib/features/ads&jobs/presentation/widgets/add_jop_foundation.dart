@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/theme/colors.dart';
+import '../../../../core/utilities/loading_widget.dart';
+import '../../../../core/utilities/snackbar_message.dart';
+import '../../../../main.dart';
+import '../../../auth/presentation/widgets/custome_button.dart';
+import '../../domain/entities/job_ad.dart';
+import '../bloc/add_job_bloc/add_job_bloc.dart';
+
+class AddJopFoundation extends StatefulWidget {
+  const AddJopFoundation({Key? key}) : super(key: key);
+
+  @override
+  State<AddJopFoundation> createState() => _AddJopFoundationState();
+}
+
+class _AddJopFoundationState extends State<AddJopFoundation> {
+  TextEditingController descriptionController = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    descriptionController = TextEditingController();
+    nameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    descriptionController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<AddJobBloc, AddJobState>(
+      listener: (context, state) {
+        if (state is SuccessAddJobState) {
+          SnackBarMessage()
+              .showSuccessSnackBar(message: state.message, context: context);
+        } else if (state is ErrorAddJobState) {
+          SnackBarMessage()
+              .showErrorSnackBar(message: state.message, context: context);
+        }
+      },
+      builder: (context, state) {
+        if (state is LoadingAddJobState) {
+          return const LoadingWidget();
+        }
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * .12,
+                decoration: BoxDecoration(
+                  border: Border.all(color: primaryColor),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const Text(
+                        "اسم الخدمة ",
+                        style: TextStyle(color: primaryColor),
+                      ),
+                      TextFormField(
+                        style: const TextStyle(color: primaryColor),
+                        textInputAction: TextInputAction.newline,
+                        keyboardType : TextInputType.text,
+                        controller: nameController,
+                        decoration: const InputDecoration(border: InputBorder.none),
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * .33,
+                decoration: BoxDecoration(
+                  border: Border.all(color: primaryColor),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Column(
+                  children: [
+                    const Text(
+                      "وصف الخدمة",
+                      style: TextStyle(color: primaryColor),
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: primaryColor),
+                      textInputAction: TextInputAction.newline,
+                     keyboardType: TextInputType.multiline,
+                      controller: descriptionController,
+                      decoration: const InputDecoration(border: InputBorder.none),
+                      maxLines: null,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .02,
+              ),
+              CustomButton(
+                title1: 'اقتراح العمل',
+                title2: '',
+                onPressButton: () {
+                  BlocProvider.of<AddJobBloc>(context).add(
+                    AddJobForFoundationEvent(
+                      JobAd(
+                        title: nameController.text,
+                        description: descriptionController.text,
+                      ),
+                      globalFoundationId!,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .10, // Added SizedBox for spacing
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}

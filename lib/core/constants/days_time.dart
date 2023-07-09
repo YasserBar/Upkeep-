@@ -1,0 +1,14 @@
+DateTime? startSut;
+DateTime? endSut;
+DateTime? startSun;
+DateTime? endSun;
+DateTime? startMon;
+DateTime? endMon;
+DateTime? startTus;
+DateTime? endTus;
+DateTime? startWen;
+DateTime? endWen;
+DateTime? starThu;
+DateTime? endThu;
+DateTime? startFri;
+DateTime? endFri;
