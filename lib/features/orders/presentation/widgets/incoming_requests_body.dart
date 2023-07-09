@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/utilities/loading_widget.dart';
-import '../../../../core/utilities/snackbar_message.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../locations/presentation/widgets/appbar.dart';
 import '../../domain/entities/order.dart';
 import '../bloc/get_all_orders_bloc/get_all_orders_bloc.dart';

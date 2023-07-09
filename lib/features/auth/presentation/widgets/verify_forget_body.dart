@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 import '../../../../core/helpers/regex.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/utilities/loading_widget.dart';
-import '../../../../core/utilities/snackbar_message.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../domain/entities/verify_pin_forget.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import 'custom_textfiled.dart';

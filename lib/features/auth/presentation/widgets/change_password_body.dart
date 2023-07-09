@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 import '../../../../core/helpers/regex.dart';
-import '../../../../core/utilities/loading_widget.dart';
-import '../../../../core/utilities/snackbar_message.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../domain/entities/change_password.dart';
 import '../bloc/change_password_logout_bloc/change_password_logout_bloc.dart';
 import '../bloc/change_password_logout_bloc/change_password_logout_event.dart';

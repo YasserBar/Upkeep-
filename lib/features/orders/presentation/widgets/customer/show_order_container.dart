@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/utilities/loading_widget.dart';
-import '../../../../../core/utilities/snackbar_message.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 import '../../../../../core/widgets/custom_service_button.dart';
 import '../../../../../injection_countainer.dart' as di;
 import '../../../domain/entities/order.dart';

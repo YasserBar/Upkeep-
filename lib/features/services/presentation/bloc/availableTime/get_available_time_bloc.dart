@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utilities/failure_to_message.dart';
+import '../../../../../core/helpers/failure_to_message.dart';
 import '../../../domain/usecases/get_available_time_usecase.dart';
 import 'get_available_time_event.dart';
 import 'get_available_time_state.dart';

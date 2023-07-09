@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/utilities/loading_widget.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../locations/presentation/widgets/appbar.dart';
 import '../../../orders/presentation/pages/requests_servece_foundation.dart';
 import '../../domain/entities/service_foundation.dart';

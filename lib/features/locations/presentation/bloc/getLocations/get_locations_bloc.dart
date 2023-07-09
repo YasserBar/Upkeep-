@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utilities/failure_to_message.dart';
+import '../../../../../core/helpers/failure_to_message.dart';
 import '../../../domain/usecases/get_locations.dart';
 import 'get_locations_event.dart';
 import 'get_locations_state.dart';

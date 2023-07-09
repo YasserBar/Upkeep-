@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../core/utilities/failure_to_message.dart';
+import '../../../../../core/helpers/failure_to_message.dart';
 import '../../../domain/entities/order.dart';
 import '../../../domain/usecases/cancel_order_usecase.dart';
 import '../../../domain/usecases/get_all_order_usecase.dart';

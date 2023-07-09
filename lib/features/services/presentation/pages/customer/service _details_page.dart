@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/pages/pages/empty_home_page.dart';
 import '../../../../../core/theme/colors.dart';
 
-import '../../../../../core/utilities/loading_widget.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 import '../../../../auth/presentation/widgets/custome_button.dart';
 import '../../../../locations/presentation/widgets/appbar.dart';
 import '../../bloc/availableTime/get_available_time_bloc.dart';

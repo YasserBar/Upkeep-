@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/aseets/assets.dart';
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/utilities/loading_widget.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 
 class ServiceDetailsContainer extends StatelessWidget {
   const ServiceDetailsContainer({super.key, required this.photo});

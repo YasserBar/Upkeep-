@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/textfiled_full_name.dart';
 import '../../../../core/aseets/assets.dart';
 import '../../../../core/helpers/regex.dart';
-import '../../../../core/utilities/loading_widget.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../../core/widgets/dropdown_list.dart';
 import '../../../ads&jobs/domain/entities/country.dart';
 import '../../../locations/presentation/bloc/getLocations/get_locations_bloc.dart';
