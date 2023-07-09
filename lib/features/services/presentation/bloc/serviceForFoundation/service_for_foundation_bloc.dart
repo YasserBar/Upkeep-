@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../core/utilities/failure_to_message.dart';
+import '../../../../../core/helpers/failure_to_message.dart';
 import '../../../domain/entities/service_foundation.dart';
 import '../../../domain/usecases/get_all_service_for_foundation_usecase.dart';
 part 'service_for_foundation_event.dart';

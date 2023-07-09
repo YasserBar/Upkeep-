@@ -1,9 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/utilities/loading_widget.dart';
-import '../../../../../core/utilities/snackbar_message.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 import '../../../../auth/presentation/widgets/custome_button.dart';
 import '../../../domain/entities/reservation.dart';
 import '../../bloc/reservation/reservation_bloc.dart';

@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../../../../core/aseets/assets.dart';
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/utilities/loading_widget.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 import '../../../domain/entities/sliders_ads_jobs.dart';
 
 class JobContainer extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/utilities/loading_widget.dart';
-import '../../../../core/utilities/snackbar_message.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../../main.dart';
 import '../../../auth/presentation/widgets/custome_button.dart';
 import '../../../categories/presentation/bloc/categories/categories_bloc.dart';

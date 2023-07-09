@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../services/presentation/widgets/service_item_wedgit.dart';
-import '../../../../core/utilities/loading_widget.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../auth/presentation/widgets/title_of_listview.dart';
 import '../../domain/entities/service_foundation.dart';
 import '../bloc/foundation_services_bloc/foundation_services_bloc.dart';

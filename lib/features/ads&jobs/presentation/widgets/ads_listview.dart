@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/utilities/loading_widget.dart';
+import '../../../../core/helpers/loading_widget.dart';
 import '../../../auth/presentation/widgets/title_of_listview.dart';
 import '../../domain/entities/job_ad.dart';
 import '../bloc/ads_foundation_bloc/ads_foundation_bloc.dart';

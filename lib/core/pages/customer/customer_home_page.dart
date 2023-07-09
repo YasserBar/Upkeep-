@@ -13,7 +13,7 @@ import '../../../features/categories/presentation/widgets/customer/service_widge
 import '../../../features/locations/presentation/widgets/appbar.dart';
 import '../../../injection_countainer.dart' as di;
 import '../../theme/colors.dart';
-import '../../utilities/loading_widget.dart';
+import '../../helpers/loading_widget.dart';
 import '../pages/empty_home_page.dart';
 
 // // ignore: must_be_immutable

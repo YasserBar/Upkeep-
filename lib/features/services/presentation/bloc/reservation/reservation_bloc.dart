@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/constants/messages.dart';
 import '../../../../../core/errors/failures.dart';
-import '../../../../../core/utilities/failure_to_message.dart';
+import '../../../../../core/helpers/failure_to_message.dart';
 import '../../../domain/usecases/reservation_service_usecase.dart';
 import 'reservation_event.dart';
 import 'reservation_state.dart';

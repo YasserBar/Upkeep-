@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/aseets/assets.dart';
 import '../../../../../core/theme/colors.dart';
-import '../../../../../core/utilities/loading_widget.dart';
+import '../../../../../core/helpers/loading_widget.dart';
 import '../../bloc/subservice/subservice_bloc.dart';
 
 class CategoryWidget extends StatelessWidget {
