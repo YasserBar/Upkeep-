@@ -6,60 +6,63 @@ class TextFiledFullName extends StatelessWidget {
   const TextFiledFullName({
     super.key,
     this.onChangeFirstName,
-    this.onChangeLastName, this.firstController, this.lastController,
+    this.onChangeLastName,
+    this.firstController,
+    this.lastController,
   });
+
   final TextEditingController? firstController;
   final TextEditingController? lastController;
   final void Function(String)? onChangeFirstName;
   final void Function(String)? onChangeLastName;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const TitleTextFiled(title: " الاسم والشهرة", icon: Icons.person),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Expanded(
-              child: Container(
-                height: 45,
-                width: 82,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
                 child: TextFormField(
                   controller: lastController,
                   onChanged: onChangeLastName,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.right,
                   decoration: const InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
                       hintText: "الشهرة",
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 12),
                       hintStyle: TextStyle(color: Color(0xffC0BEBE))),
                 ),
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Container(
-                height: 45,
-                width: 265,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+              const SizedBox(
+                width: 10,
+              ),
+              Expanded(
                 child: TextFormField(
                   controller: firstController,
                   onChanged: onChangeFirstName,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.right,
                   decoration: const InputDecoration(
-                      border: InputBorder.none,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
                       hintText: "الاسم",
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 12),
+                      filled: true,
+                      fillColor: Colors.white,
                       hintStyle: TextStyle(color: Color(0xffC0BEBE))),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

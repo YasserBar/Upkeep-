@@ -202,7 +202,9 @@ class TimeDatePicker extends StatelessWidget {
       children: [
         Container(
           height: MediaQuery.of(context).size.height * .06,
+          alignment: Alignment.centerRight,
           width: double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 12),
           margin: const EdgeInsets.symmetric(horizontal: 10),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),

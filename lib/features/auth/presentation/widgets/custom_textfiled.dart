@@ -31,26 +31,24 @@ class CustomTextFiled extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * .01,
         ),
-        Container(
-          //  height: MediaQuery.of(context).size.height * .05,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          child: TextFormField(
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            obscureText: isPassword,
-            validator: validator,
-            textAlignVertical: TextAlignVertical.center,
-            controller: controller,
-            onChanged: onChange,
-            style: const TextStyle(overflow: TextOverflow.clip),
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: hintT,
-                hintStyle: const TextStyle(color: Color(0xffC0BEBE))),
-          ),
+        TextFormField(
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          obscureText: isPassword,
+          validator: validator,
+          textAlignVertical: TextAlignVertical.center,
+          controller: controller,
+          onChanged: onChange,
+          style: const TextStyle(overflow: TextOverflow.clip),
+          textAlign: TextAlign.right,
+          decoration: InputDecoration(
+              border: const OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              hintText: hintT,
+              filled: true,
+              fillColor: Colors.white,
+              hintStyle: const TextStyle(color: Color(0xffC0BEBE))),
         ),
       ],
     );
