@@ -17,12 +17,11 @@ class JobPage extends StatelessWidget {
     // double listViewWidth = (358 / 390) * width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(
             children: [
-              const SizedBox(height: 117),
+              const SizedBox(height: 130),
               BlocProvider(
                 create: (_) => di.sl<JobBloc>()..add(const GetAllJobEvent()),
                 child: BlocBuilder<JobBloc, JobState>(

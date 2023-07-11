@@ -20,7 +20,6 @@ class _MyOrderPageState extends State<MyOrderPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(

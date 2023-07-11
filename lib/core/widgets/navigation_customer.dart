@@ -70,6 +70,7 @@ class _NavigationCustomerState extends State<NavigationCustomer> {
             canvasColor: primaryColor,
           ),
           child: BottomNavigationBar(
+            showUnselectedLabels: true,
             unselectedItemColor: Colors.white,
             selectedItemColor: secondryColor,
             currentIndex: index,
