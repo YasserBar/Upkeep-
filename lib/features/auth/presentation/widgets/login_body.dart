@@ -70,16 +70,15 @@ class _LoginBodyState extends State<LoginBody> {
         }
 
         return SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const CostumeAppBarAuth(
-                  title: 'قم بتسجيل الدخول الى حسابك',
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height - 150,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const CostumeAppBarAuth(
+                title: 'قم بتسجيل الدخول الى حسابك',
+              ),
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.8,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
@@ -171,8 +170,8 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

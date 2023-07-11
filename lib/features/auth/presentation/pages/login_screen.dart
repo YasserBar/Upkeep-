@@ -10,8 +10,7 @@ class LoginScreen extends StatelessWidget {
     return const Directionality(
       textDirection: TextDirection.ltr,
       child: Scaffold(
-        backgroundColor: Color(0xffe4e4e4),
-        body: SafeArea(child: LoginBody()),
+        body: LoginBody(),
       ),
     );
   }

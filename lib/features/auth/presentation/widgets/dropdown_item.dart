@@ -145,42 +145,39 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: widget.bColor),
+      child: DropdownButtonFormField(
+        decoration: const InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(
+                Radius.circular(5),
+              )),
+          contentPadding: EdgeInsets.all(10)
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: DropdownButtonFormField(
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-            ),
-            hint: Text(
-              widget.title,
+        hint: Text(
+          widget.title,
+          style: TextStyle(color: widget.titleColor),
+        ),
+        value: selectedCity,
+        onChanged: (value) {
+          setState(() {
+            selectedCity = value as String?;
+          });
+          if (widget.onChanged != null) {
+            widget.onChanged!(selectedCity!);
+          }
+        },
+        items: widget.s.map((city) {
+          return DropdownMenuItem(
+            value: city,
+            child: Text(
+              city,
               style: TextStyle(color: widget.titleColor),
             ),
-            value: selectedCity,
-            onChanged: (value) {
-              setState(() {
-                selectedCity = value as String?;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(selectedCity!);
-              }
-            },
-            items: widget.s.map((city) {
-              return DropdownMenuItem(
-                value: city,
-                child: Text(
-                  city,
-                  style: TextStyle(color: widget.titleColor),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
+          );
+        }).toList(),
       ),
     );
   }

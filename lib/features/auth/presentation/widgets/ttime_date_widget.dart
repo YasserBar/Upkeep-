@@ -183,40 +183,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:upkeep_plus/core/helpers/regex.dart';
+import 'package:upkeep_plus/features/auth/presentation/widgets/custom_textfiled.dart';
+import 'package:upkeep_plus/features/services/domain/entities/date.dart';
 
 class TimeDatePicker extends StatelessWidget {
   const TimeDatePicker({Key? key, this.setDateController}) : super(key: key);
   final Function(String)? setDateController;
 
-  void _updateControllerValue(DateTime dateTime) {
-    final DateFormat formatter = DateFormat('hh:mm a');
-    final String date = formatter.format(dateTime);
-    setDateController!(date); // call the function to update the dateController
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height * .06,
-          alignment: Alignment.centerRight,
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            color: Colors.white,
-          ),
-          child: TimeDateWidget(
-            onDateTimeChanged: _updateControllerValue,
-          ),
-        ),
-      ],
+    TextEditingController dateController= TextEditingController();
+    return CustomTextFiled(
+      title: "تاريخ الميلاد",
+      icon: Icons.date_range_outlined,
+      controller: dateController,
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (BuildContext builder) {
+            return SizedBox(
+              height: MediaQuery.of(context).copyWith().size.height / 3,
+              child: CupertinoDatePicker(
+                mode: CupertinoDatePickerMode.date,
+                minimumYear: 1900,
+                maximumYear: DateTime.now().year,
+                onDateTimeChanged: (val) {
+                  final DateFormat formatter = DateFormat('DD-MM-YYYY');
+                  final String date = formatter.format(val);
+                  dateController.text=date;
+                  setDateController?.call(date);
+                },
+                use24hFormat: true,
+              ),
+            );
+          },
+        );
+      },
     );
   }
+
 }
 
 class TimeDateWidget extends StatefulWidget {
