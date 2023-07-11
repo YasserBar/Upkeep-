@@ -11,30 +11,37 @@ class CostumeAppBarAuth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: primaryColor,
-        border: Border.all(
-          color: secondryColor,
-          width: 1.5,
-        ),
-        borderRadius: const BorderRadius.only(
+      padding: const EdgeInsets.only(left: 3,bottom: 3),
+      height: MediaQuery.of(context).size.height * 0.2,
+      decoration: const BoxDecoration(
+        color: secondryColor,
+        borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(200),
         ),
       ),
-      child: Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * .7,
-            child: Text(
-              title,
-              textAlign: TextAlign.end,
-              style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-            ),
-          )),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(top: 30),
+        decoration: const BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(200),
+          ),
+        ),
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * .7,
+              child: Text(
+                title,
+                textAlign: TextAlign.end,
+                style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            )),
+      ),
     );
   }
 }

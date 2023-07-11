@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/colors.dart';
 
 class CustomTextFiled extends StatelessWidget {
-  const CustomTextFiled({
-    super.key,
-    this.title,
-    this.icon,
-    this.hintT,
-    this.onChange,
-    this.controller,
-    this.keyboardType,
-    this.validator,
-    this.isPassword = false,
-  });
+  const CustomTextFiled(
+      {super.key,
+      this.title,
+      this.icon,
+      this.hintT,
+      this.onChange,
+      this.controller,
+      this.keyboardType,
+      this.validator,
+      this.isPassword = false,
+      this.onTap = null});
 
   final bool isPassword;
   final String? title;
@@ -23,6 +23,8 @@ class CustomTextFiled extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function(String)? onChange;
+  final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,6 +42,7 @@ class CustomTextFiled extends StatelessWidget {
           onChanged: onChange,
           style: const TextStyle(overflow: TextOverflow.clip),
           textAlign: TextAlign.right,
+          onTap: onTap,
           decoration: InputDecoration(
               border: const OutlineInputBorder(
                 borderSide: BorderSide.none,

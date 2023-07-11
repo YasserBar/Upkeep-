@@ -32,7 +32,6 @@ class TexetFiledNumber extends StatelessWidget {
               hintText: "رقم الهاتف",
               fillColor: Colors.white,
               filled: true,
-              isDense: true,
               prefix: Text(
                 "+963 ",
                 style: TextStyle(color: Colors.black),

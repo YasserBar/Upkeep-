@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/features/locations/presentation/bloc/getLocations/get_locations_event.dart';
 import '../widgets/textfiled_full_name.dart';
 import '../../../../core/aseets/assets.dart';
 import '../../../../core/helpers/regex.dart';
@@ -18,6 +19,8 @@ import 'custome_button.dart';
 import 'dropdown_item.dart';
 import 'textfiled_number.dart';
 import 'ttime_date_widget.dart';
+import '../../../../../injection_countainer.dart' as di;
+
 
 class SignupBody extends StatefulWidget {
   const SignupBody({Key? key}) : super(key: key);
@@ -29,9 +32,9 @@ class SignupBody extends StatefulWidget {
 class _SignupBodyState extends State<SignupBody> {
   late String selectedGender;
   void setDate(String date) {
-    setState(() {
+    // setState(() {
       dateController.text = date;
-    });
+    // });
   }
 
   int selectedCity = 0;
@@ -49,96 +52,97 @@ class _SignupBodyState extends State<SignupBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is SuccessAuthState) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
+    return BlocProvider(
+      create: (_) => di.sl<GetLocationsBloc>()..add(const GetAllCountryEvent()),
+      child: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is SuccessAuthState) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VerifySignupScreen(
+                      email: emailController.text,
+                      password: passwordController.text)),
+            );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) => VerifySignupScreen(
-                    email: emailController.text,
-                    password: passwordController.text)),
-          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => VerifySignupScreen(
-                email: emailController.text,
-                password: passwordController.text,
+                  email: emailController.text,
+                  password: passwordController.text,
+                ),
               ),
-            ),
-          );
-        } else if (state is ErrorAuthState) {
-          if (kDebugMode) {
-            print(state.message);
+            );
+          } else if (state is ErrorAuthState) {
+            if (kDebugMode) {
+              print(state.message);
+            }
           }
-        }
-      },
-      builder: (context, state) {
-        if (state is LoadingAuthState) {
-          return const LoadingWidget();
-        }
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              const CostumeAppBarAuth(
-                title: 'قم  بإنشاء  حساب جديد الآن  ',
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 15, vertical: 10),
-                child: Form(
-                  key: formfey,
-                  autovalidateMode: AutovalidateMode.always,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const SizedBox(height: 10,),
-                      CustomTextFiled(
-                        title: 'أيميل',
-                        hintT: "example@mail.com",
-                        icon: Icons.email_outlined,
-                        controller: emailController,
-                        validator: (value) => validateEmail(value),
-                      ),
-                      const SizedBox(height: 10,),
-                      CustomTextFiled(
-                        title: 'كلمة المرور',
-                        hintT: "************",
-                        icon: Icons.lock_outline,
-                        controller: passwordController,
-                        validator: (value) => validatePassword(value),
-                      ),
-                      const SizedBox(height: 10,),
-                      TexetFiledNumber(
-                        controller: phoneController,
-                        validator: (value) => validatePhone(value),
-                      ),
-                      const SizedBox(height: 10,),
-                      TextFiledFullName(
-                        firstController: firstNameController,
-                        lastController: lastNameController,
-                      ),
-                      const SizedBox(height: 10,),
-                      Column(
-                        children: [
-                          const TitleTextFiled(
-                              title: "تاريخ الميلاد",
-                              icon: Icons.date_range_outlined),
-                          TimeDatePicker(
-                            setDateController: setDate,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10,),
-                      Column(
-                        children: [
-                          const TitleTextFiled(
-                              title: "الجنس",
-                              icon: Icons.male),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SizedBox(
+        },
+
+        builder: (context, state) {
+          if (state is LoadingAuthState) {
+            return const LoadingWidget();
+          }
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const CostumeAppBarAuth(
+                  title: 'قم  بإنشاء  حساب جديد الآن  ',
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15, vertical: 10),
+                  child: Form(
+                    key: formfey,
+                    autovalidateMode: AutovalidateMode.always,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const SizedBox(height: 10,),
+                        CustomTextFiled(
+                          title: 'أيميل',
+                          hintT: "example@mail.com",
+                          icon: Icons.email_outlined,
+                          controller: emailController,
+                          validator: (value) => validateEmail(value),
+                        ),
+                        const SizedBox(height: 10,),
+                        CustomTextFiled(
+                          title: 'كلمة المرور',
+                          hintT: "************",
+                          icon: Icons.lock_outline,
+                          controller: passwordController,
+                          validator: (value) => validatePassword(value),
+                        ),
+                        const SizedBox(height: 10,),
+                        TexetFiledNumber(
+                          controller: phoneController,
+                          validator: (value) => validatePhone(value),
+                        ),
+                        const SizedBox(height: 10,),
+                        TextFiledFullName(
+                          firstController: firstNameController,
+                          lastController: lastNameController,
+                        ),
+                        const SizedBox(height: 10,),
+                        Column(
+                          children: [
+                            const TitleTextFiled(
+                                title: "تاريخ الميلاد",
+                                icon: Icons.date_range_outlined),
+                            TimeDatePicker(
+                              setDateController: setDate,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10,),
+                        Column(
+                          children: [
+                            const TitleTextFiled(
+                                title: "الجنس",
+                                icon: Icons.male),
+                            SizedBox(
                                 height:
                                 MediaQuery.of(context).size.height * .06,
                                 child: DropdownButtonWidget(
@@ -150,72 +154,72 @@ class _SignupBodyState extends State<SignupBody> {
                                     });
                                   },
                                 )),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height * .06,
-                          child: BlocBuilder<GetLocationsBloc,
-                              GetLocationsState>(
-                            builder: (context, state) {
-                              if (state is LoadedGetAllCountryState) {
-                                return DropdownButtonWidget(
-                                  s: state.country,
-                                  title: "الموقع",
-                                  onChanged: (value) {
-                                    setState(() {
-                                      if (value == "دمشق") {
-                                        selectedCity = 1;
-                                      }
-                                      if (value == "حمص") {
-                                        selectedCity = 2;
-                                      } else {
-                                        selectedCity = 3;
-                                      }
-                                    });
-                                  },
-                                );
-                              } else if (state
-                              is FailureGetLocationsState) {
-                                return (Text(state.message));
-                              } else {
-                                return const LoadingWidget();
-                              }
-                            },
-                          )),
-                      CustomButton(
-                        title1: "انشاء الحساب",
-                        title2: " ",
-                        onPressButton: () {
-                          final isValidForm =
-                          formfey.currentState!.validate();
-                          if (isValidForm) {
-                            BlocProvider.of<AuthBloc>(context)
-                                .add(SignupEvent(Signup(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              fName: firstNameController.text,
-                              lName: lastNameController.text,
-                              gender: selectedGender,
-                              dateOfBirth: dateController.text,
-                              country: selectedCity,
-                              region: selectedCity,
-                              city: selectedCity,
-                              mobilePhoneNumber:
-                              "+963${phoneController.text}",
-                            )));
-                          }
-                        },
-                      ),
-                    ],
+                          ],
+                        ),
+                        SizedBox(
+                            height:
+                            MediaQuery.of(context).size.height * .06,
+                            child: BlocBuilder<GetLocationsBloc,
+                                GetLocationsState>(
+                              builder: (context, state) {
+                                if (state is LoadedGetAllCountryState) {
+                                  return DropdownButtonWidget(
+                                    s: state.country,
+                                    title: "الموقع",
+                                    onChanged: (value) {
+                                      setState(() {
+                                        if (value == "دمشق") {
+                                          selectedCity = 1;
+                                        }
+                                        if (value == "حمص") {
+                                          selectedCity = 2;
+                                        } else {
+                                          selectedCity = 3;
+                                        }
+                                      });
+                                    },
+                                  );
+                                } else if (state
+                                is FailureGetLocationsState) {
+                                  return (Text(state.message));
+                                } else {
+                                  return const LoadingWidget();
+                                }
+                              },
+                            )),
+                        CustomButton(
+                          title1: "انشاء الحساب",
+                          title2: " ",
+                          onPressButton: () {
+                            final isValidForm =
+                            formfey.currentState!.validate();
+                            if (isValidForm) {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(SignupEvent(Signup(
+                                email: emailController.text,
+                                password: passwordController.text,
+                                fName: firstNameController.text,
+                                lName: lastNameController.text,
+                                gender: selectedGender,
+                                dateOfBirth: dateController.text,
+                                country: selectedCity,
+                                region: selectedCity,
+                                city: selectedCity,
+                                mobilePhoneNumber:
+                                "+963${phoneController.text}",
+                              )));
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
-        );
-      },
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
