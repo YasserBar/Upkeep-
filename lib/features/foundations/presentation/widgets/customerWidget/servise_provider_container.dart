@@ -46,6 +46,7 @@ class ServiceProviderContainer extends StatelessWidget {
               color: primaryColor,
               borderRadius: BorderRadius.all(Radius.circular(35))),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -86,10 +87,12 @@ class ServiceProviderContainer extends StatelessWidget {
                       )),
                 ],
               ),
+              const SizedBox(width: 10,),
               // ignore: unnecessary_null_comparison
               photo != null
                   ? Container(
                       width: photoWidth,
+                      clipBehavior: Clip.hardEdge,
                       height: (111 / 143) * photoWidth,
                       decoration: BoxDecoration(
                           color: Colors.white,
@@ -97,6 +100,7 @@ class ServiceProviderContainer extends StatelessWidget {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(30))),
                       child: CachedNetworkImage(
+                        fit: BoxFit.cover,
                         imageUrl: photo!,
                         placeholder: (context, url) => const LoadingWidget(),
                         errorWidget: (context, url, error) =>
@@ -118,7 +122,8 @@ class ServiceProviderContainer extends StatelessWidget {
                           Radius.circular(30),
                         ),
                       ),
-                    )
+                    ),
+              const SizedBox(width: 10,),
             ],
           ),
         ),

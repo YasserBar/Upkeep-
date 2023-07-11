@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Upkeep+',
         theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xffe4e4e4),
           primaryColor: primaryColor,
         ),
       ),

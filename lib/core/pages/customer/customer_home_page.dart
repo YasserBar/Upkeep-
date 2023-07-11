@@ -393,7 +393,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 30),
                         // اعلانات
                         nameContext('الاعلانات'),
                         const SizedBox(height: 2),

@@ -29,8 +29,9 @@ class JobContainer extends StatelessWidget {
             color: primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(42))),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 10,),
             // ignore: unnecessary_null_comparison
             job.photo != null
                 ? Container(
@@ -65,7 +66,7 @@ class JobContainer extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(42))),
                   ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             Container(
               padding: const EdgeInsets.only(right: 10),
