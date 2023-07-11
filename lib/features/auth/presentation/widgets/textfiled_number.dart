@@ -10,52 +10,34 @@ class TexetFiledNumber extends StatelessWidget {
     this.controller,
     this.validator,
   });
+
   String? Function(String?)? validator;
   final TextEditingController? controller;
   final void Function(String)? onChange;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const TitleTextFiled(title: "رقم الهاتف", icon: Icons.phone),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5),
-                ),
-                color: Colors.white,
-              ),
-              width: MediaQuery.of(context).size.width * .2,
-              height: MediaQuery.of(context).size.height * .08,
-              //  height: MediaQuery.of(context).size.height * .05,
-              child: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "+963",
-                ),
-              ),
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height * .08,
-              width: MediaQuery.of(context).size.width * .7,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
+        TextFormField(
+          validator: validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          controller: controller,
+          textAlign: TextAlign.right,
+          decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
-              child: TextFormField(
-                validator: validator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                controller: controller,
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Phone Number",
-                    hintStyle: TextStyle(color: Color(0xffC0BEBE))),
+              hintText: "رقم الهاتف",
+              fillColor: Colors.white,
+              filled: true,
+              isDense: true,
+              prefix: Text(
+                "+963 ",
+                style: TextStyle(color: Colors.black),
               ),
-            ),
-          ],
+              hintStyle: TextStyle(color: Color(0xffC0BEBE))),
         ),
       ],
     );
