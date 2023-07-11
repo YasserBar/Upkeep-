@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../../features/ads&jobs/presentation/widgets/ads_listview.dart';
 import '../../../../features/locations/presentation/widgets/appbar.dart';
 import '../../../../features/orders/presentation/widgets/get_all_jop_foundation_listview.dart';
-import '../../../../features/services/presentation/widgets/service_listview.dart';
 
 class HomeServiceProviderBody extends StatelessWidget {
   const HomeServiceProviderBody({Key? key}) : super(key: key);
@@ -23,9 +22,6 @@ class HomeServiceProviderBody extends StatelessWidget {
                   SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * .02),
-                        const ServiceListview(),
                         SizedBox(
                             height: MediaQuery.of(context).size.height * .02),
                         const AdsListview(),

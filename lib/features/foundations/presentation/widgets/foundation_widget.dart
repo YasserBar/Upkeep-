@@ -22,6 +22,7 @@ class FoundationWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 5),
         child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: const BoxDecoration(
             color: primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(37)),
@@ -71,7 +72,7 @@ class FoundationWidget extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(right: 5),
+                    clipBehavior: Clip.hardEdge,
                     height: MediaQuery.of(context).size.height * .2,
                     width: MediaQuery.of(context).size.width * .47,
                     decoration: BoxDecoration(
@@ -80,12 +81,10 @@ class FoundationWidget extends StatelessWidget {
                           const BorderRadius.all(Radius.circular(100)),
                     ),
                     child: Container(
-                      margin: EdgeInsets.all(
-                          MediaQuery.of(context).size.width * .03),
                       child: imgUrl !=
                               "http://upkeepplus.tech/jobs_and_service_class_photo"
                           ? CachedNetworkImage(
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                               imageUrl: imgUrl,
                               placeholder: (context, url) =>
                                   const CircularProgressIndicator(

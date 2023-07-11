@@ -253,7 +253,7 @@ class _EditServiceFormWidgetState extends State<EditServiceFormWidget> {
                   ),
                   Container(
                       margin: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 30),
+                          vertical: 20,),
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
                           border: Border.all(color: primaryColor, width: 1),

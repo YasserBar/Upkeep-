@@ -8,7 +8,6 @@ import '../../../../features/auth/presentation/pages/my_foundations_screeen.dart
 import '../../../../features/locations/presentation/widgets/appbar.dart';
 import '../../../../features/services/presentation/bloc/add_service_foundation/add_service_foundation_bloc.dart';
 import '../../../../features/services/presentation/widgets/add_service_form.dart';
-import '../../../../features/services/presentation/widgets/service_listview.dart';
 import '../../../../features/suggestions/presentation/bloc/propose_new_service_bloc/propose_new_service_bloc.dart';
 import '../../../../features/suggestions/presentation/widgets/propose_service_widget.dart';
 import '../../../../features/suggestions/presentation/widgets/suggestion_result_widgets.dart';
@@ -181,13 +180,12 @@ class _ServiceBodyState extends State<ServiceBody> {
                               );
                             }),
                       ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .02,
+                      ),
                       const SuggestionResults(),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * .01,
-                      ),
-                      const ServiceListview(),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * .02,
                       ),
                     ],
                   ),
