@@ -19,6 +19,7 @@ class ProposeService extends StatefulWidget {
 
 class _ProposeServiceState extends State<ProposeService> {
   TextEditingController descriptionController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,7 @@ class _ProposeServiceState extends State<ProposeService> {
 
   String? selectedName;
   int? classService;
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ProposeNewServiceBloc, ProposeNewServiceState>(
@@ -68,8 +70,9 @@ class _ProposeServiceState extends State<ProposeService> {
                                 const BorderRadius.all(Radius.circular(10))),
                         child: DropdownButtonFormField(
                           decoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10)),
                           hint: const Text(
                             'صنف الخدمة',
                             style: TextStyle(color: primaryColor),
@@ -116,8 +119,10 @@ class _ProposeServiceState extends State<ProposeService> {
                       TextFormField(
                         style: const TextStyle(color: primaryColor),
                         controller: descriptionController,
-                        decoration:
-                            const InputDecoration(border: InputBorder.none),
+                        decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 15)),
                         maxLines: null,
                       ),
                     ],

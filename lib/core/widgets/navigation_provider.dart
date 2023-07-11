@@ -31,6 +31,7 @@ class _NavigationProviderState extends State<NavigationProvider> {
         ),
         child: BottomNavigationBar(
           backgroundColor: primaryColor,
+          showUnselectedLabels: true,
           unselectedItemColor: Colors.white,
           selectedItemColor: secondryColor,
           currentIndex: index,

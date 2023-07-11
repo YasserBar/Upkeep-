@@ -36,9 +36,6 @@ class SuggestionResults extends StatelessWidget {
                       fontSize: 24),
                 ),
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .02,
-              ),
               BlocBuilder<GetAllMyProposeBloc, GetAllMyProposeState>(
                 builder: (context, state) {
                   if (kDebugMode) {
@@ -59,6 +56,7 @@ class SuggestionResults extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.topRight,
                         child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: mySuggestion.length,
                           itemBuilder: (BuildContext context, int index) {
                             final suggestion = mySuggestion[index];

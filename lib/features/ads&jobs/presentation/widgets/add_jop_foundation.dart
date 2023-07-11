@@ -71,9 +71,12 @@ class _AddJopFoundationState extends State<AddJopFoundation> {
                       TextFormField(
                         style: const TextStyle(color: primaryColor),
                         textInputAction: TextInputAction.newline,
-                        keyboardType : TextInputType.text,
+                        keyboardType: TextInputType.text,
                         controller: nameController,
-                        decoration: const InputDecoration(border: InputBorder.none),
+                        decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5)),
                         maxLines: 1,
                       ),
                     ],
@@ -98,9 +101,12 @@ class _AddJopFoundationState extends State<AddJopFoundation> {
                     TextFormField(
                       style: const TextStyle(color: primaryColor),
                       textInputAction: TextInputAction.newline,
-                     keyboardType: TextInputType.multiline,
+                      keyboardType: TextInputType.multiline,
                       controller: descriptionController,
-                      decoration: const InputDecoration(border: InputBorder.none),
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 15)),
                       maxLines: null,
                     ),
                   ],
@@ -125,7 +131,8 @@ class _AddJopFoundationState extends State<AddJopFoundation> {
                 },
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .10, // Added SizedBox for spacing
+                height: MediaQuery.of(context).size.height *
+                    .10, // Added SizedBox for spacing
               ),
             ],
           ),
