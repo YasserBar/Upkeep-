@@ -7,8 +7,14 @@ import '../../../../../core/helpers/loading_widget.dart';
 
 class AdsWidget extends StatelessWidget {
   final String? photo;
+  final String title;
   final String description;
-  const AdsWidget({super.key, required this.photo, required this.description});
+
+  const AdsWidget(
+      {super.key,
+      required this.photo,
+      required this.title,
+      required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +64,35 @@ class AdsWidget extends StatelessWidget {
               color: Colors.black12.withOpacity(0.3),
               borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
-            margin: const EdgeInsets.only(left: 50, top: 60, right: 30),
+            margin: const EdgeInsets.only(top: 52, right: 20),
             padding: const EdgeInsets.only(right: 8, top: 4),
             width: opConWidth,
             height: (90 / 200) * opConWidth,
-            child: AutoSizeText(
-              description.toString(),
-              maxFontSize: 12,
-              minFontSize: 2,
-              maxLines: 3,
-              style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white),
-              textDirection: TextDirection.rtl,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: secondryColor),
+                  textDirection: TextDirection.rtl,
+                ),
+                AutoSizeText(
+                  description.toString(),
+                  maxFontSize: 12,
+                  minFontSize: 10,
+                  maxLines: 2,
+                  style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white),
+                  textDirection: TextDirection.rtl,
+                ),
+              ],
             ),
           ),
         ],

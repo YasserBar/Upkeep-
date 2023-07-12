@@ -21,7 +21,7 @@ class ServiceProviderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
+    double width = MediaQuery.of(context).size.width-20;
     double conWidth = (358 / 390) * width;
     double titleWidth = (141 / 358) * conWidth;
     double photoWidth = (143 / 358) * conWidth;

@@ -44,6 +44,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                       }
                       return Expanded(
                         child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                             controller: context
                                 .read<OrdersCustomerBloc>()
                                 .scrollController,
