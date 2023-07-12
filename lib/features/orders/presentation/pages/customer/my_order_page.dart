@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
 import '../../../../../core/pages/pages/empty_pages.dart';
 import '../../../../../core/widgets/loading_widget.dart';
 
@@ -24,7 +25,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
         children: [
           Column(
             children: [
-              const SizedBox(height: 117),
+              const SizedBox(height: 80),
               BlocProvider(
                 create: (_) =>
                     di.sl<OrdersCustomerBloc>()..add(const GetAllOrdersEvent()),
@@ -77,12 +78,31 @@ class _MyOrderPageState extends State<MyOrderPage> {
                     } else if (state is FailureOrdersCustomerState) {
                       return Expanded(
                         child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              state.message,
-                              textAlign: TextAlign.center,
-                            ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  state.message,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.blueGrey[50],
+                                child: IconButton(
+                                  onPressed: () {
+                                    context.read<OrdersCustomerBloc>().add(
+                                          const GetAllOrdersEvent(),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.replay_sharp,
+                                    color: secondryColor,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/features/foundations/domain/entities/filter_foundations.dart';
+import 'package:upkeep_plus/features/foundations/presentation/bloc/filterFoundations/filter_foundations_bloc.dart';
 import '../../../../core/theme/colors.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/entities/country.dart';
@@ -14,11 +16,13 @@ class Searchh extends StatefulWidget {
   Function setCountryId;
   Function setRegionId;
   Function setCityId;
+  int? subServiceId;
   Searchh({
     Key? key,
     required this.setCountryId,
     required this.setRegionId,
     required this.setCityId,
+    this.subServiceId,
   }) : super(key: key);
 
   @override
@@ -31,6 +35,9 @@ class _SearchhState extends State<Searchh> {
   Country? _selectedCountry;
   Region? _selectedRegion;
   City? _selectedCity;
+  int? countryId;
+  int? cityId;
+  int? regionId;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +84,9 @@ class _SearchhState extends State<Searchh> {
                     backgroundColor: Colors.white,
                     child: IconButton(
                       onPressed: () {
-                        
+                        context
+                            .read<GetLocationsBloc>()
+                            .add(const GetAllCountryEvent());
                       },
                       icon: const Icon(
                         Icons.replay_sharp,
@@ -106,14 +115,44 @@ class _SearchhState extends State<Searchh> {
               ),
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: TextFormField(
-                  controller: searchController,
-                  readOnly: true,
-                  onTap: () {},
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Icon(Icons.search),
-                    iconColor: Colors.black,
+                child: BlocProvider<FilterFoundationsBloc>(
+                  create: (_) => di.sl<FilterFoundationsBloc>(),
+                  child: Stack(
+                    children: [
+                      TextFormField(
+                        scrollController: ScrollController(),
+                        controller: searchController,
+                        readOnly: true,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          prefixIcon: SizedBox(),
+                        ),
+                      ),
+                      Positioned(
+                        right: 0.0,
+                        bottom: 0.0,
+                        child: CircleAvatar(
+                          radius: 18,
+                          backgroundColor: Colors.black12,
+                          child: IconButton(
+                            splashColor: primaryColor,
+                            icon: const Icon(Icons.search, color: primaryColor),
+                            onPressed: () {
+                              context.read<FilterFoundationsBloc>().add(
+                                    LoadedFilterFoundationsEvent(
+                                      filterFoundations: FilterFoundations(
+                                        countryId: countryId,
+                                        cityId: cityId,
+                                        regionId: regionId,
+                                        subServiceId: widget.subServiceId,
+                                      ),
+                                    ),
+                                  );
+                            },
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -179,6 +218,7 @@ class _SearchhState extends State<Searchh> {
             _selectedCountry = countryList.firstWhere((c) => c.id == id);
             _selectedCity = null;
             _selectedRegion = null;
+            countryId = id;
             setCountryId(id);
             searchController.text = _selectedCountry!.name;
           } else if (type == 'city') {
@@ -186,6 +226,7 @@ class _SearchhState extends State<Searchh> {
                 getCitiesByCountryId(_selectedCountry!.id, countryList)
                     .firstWhere((c) => c.id == id);
             _selectedRegion = null;
+            cityId = id;
             setCityId(id);
             searchController.text =
                 '${_selectedCountry!.name} > ${_selectedCity!.name}';
@@ -193,6 +234,7 @@ class _SearchhState extends State<Searchh> {
             _selectedRegion =
                 getRegionsByCityId(_selectedCity!.id, _selectedCountry!.cities)
                     .firstWhere((r) => r.id == id);
+            regionId = id;
             setRegionId(id);
             searchController.text =
                 '${_selectedCountry!.name} > ${_selectedCity!.name} > ${_selectedRegion!.name}';
@@ -210,6 +252,9 @@ class _SearchhState extends State<Searchh> {
                     setState(() {
                       full = false;
                     });
+                    countryId = null;
+                    cityId = null;
+                    regionId = null;
                     _selectedCountry = null;
                     _selectedRegion = null;
                     _selectedCity = null;

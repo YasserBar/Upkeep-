@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
 import '../../../../../core/pages/pages/empty_home_page.dart';
 import '../../../../../core/widgets/loading_widget.dart';
 import '../../../../locations/presentation/widgets/appbar.dart';
@@ -21,7 +22,7 @@ class JobPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              const SizedBox(height: 117),
+              const SizedBox(height: 80),
               BlocProvider(
                 create: (_) => di.sl<JobBloc>()..add(const GetAllJobEvent()),
                 child: BlocBuilder<JobBloc, JobState>(
@@ -72,12 +73,31 @@ class JobPage extends StatelessWidget {
                     } else if (state is FailureJobState) {
                       return Expanded(
                         child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              state.message,
-                              textAlign: TextAlign.center,
-                            ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  state.message,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.blueGrey[50],
+                                child: IconButton(
+                                  onPressed: () {
+                                    context.read<JobBloc>().add(
+                                          const GetAllJobEvent(),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.replay_sharp,
+                                    color: secondryColor,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       );

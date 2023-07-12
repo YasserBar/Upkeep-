@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
 import '../../../../../core/pages/pages/empty_pages.dart';
 import '../../../../../core/widgets/loading_widget.dart';
 import '../../../../locations/presentation/widgets/appbar.dart';
@@ -31,25 +32,24 @@ class ServiceProviderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              const SizedBox(height: 100),
-              BlocProvider(
-                create: (_) => di.sl<FilterFoundationsBloc>()
-                  ..add(
-                    LoadedFilterFoundationsEvent(
-                      filterFoundations: FilterFoundations(
-                        countryId: countryId,
-                        cityId: cityId,
-                        regionId: regionId,
-                        subServiceId: subServiceId,
-                      ),
-                    ),
-                  ),
-                child:
-                    BlocBuilder<FilterFoundationsBloc, FilterFoundationsState>(
+      body: BlocProvider(
+        create: (_) => di.sl<FilterFoundationsBloc>()
+          ..add(
+            LoadedFilterFoundationsEvent(
+              filterFoundations: FilterFoundations(
+                countryId: countryId,
+                cityId: cityId,
+                regionId: regionId,
+                subServiceId: subServiceId,
+              ),
+            ),
+          ),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                const SizedBox(height: 100),
+                BlocBuilder<FilterFoundationsBloc, FilterFoundationsState>(
                   builder: (context, state) {
                     context.read<FilterFoundationsBloc>().filterFoundations =
                         FilterFoundations(
@@ -102,12 +102,39 @@ class ServiceProviderPage extends StatelessWidget {
                     } else if (state is FailureFilterFoundationsState) {
                       return Expanded(
                         child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              state.message,
-                              textAlign: TextAlign.center,
-                            ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  state.message,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.blueGrey[50],
+                                child: IconButton(
+                                  onPressed: () {
+                                    context.read<FilterFoundationsBloc>().add(
+                                          LoadedFilterFoundationsEvent(
+                                            filterFoundations:
+                                                FilterFoundations(
+                                              countryId: countryId,
+                                              cityId: cityId,
+                                              regionId: regionId,
+                                              subServiceId: subServiceId,
+                                            ),
+                                          ),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.replay_sharp,
+                                    color: secondryColor,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       );
@@ -115,21 +142,23 @@ class ServiceProviderPage extends StatelessWidget {
                     return const Center(child: LoadingWidget(vertical: 200));
                   },
                 ),
-              )
-            ],
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: AppBarrr(
-              pageName: 'مزودي الخدمة',
-              setCountryId: setCountryId,
-              setCityId: setCityId,
-              setRegionId: setRegionId,
+              ],
             ),
-          ),
-        ],
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: AppBarrr(
+                subServiceId: subServiceId,
+                enableLocation: true,
+                pageName: 'مزودي الخدمة',
+                setCountryId: setCountryId,
+                setCityId: setCityId,
+                setRegionId: setRegionId,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

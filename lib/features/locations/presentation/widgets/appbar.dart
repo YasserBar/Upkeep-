@@ -22,8 +22,9 @@ class AppBarrr extends StatefulWidget {
   bool? enableLocation;
   bool logout;
   bool changePassowrd;
+  int? subServiceId;
   AppBarrr({
-    this.enableLocation = true,
+    this.enableLocation = false,
     this.logout = false,
     this.changePassowrd = false,
     super.key,
@@ -31,6 +32,7 @@ class AppBarrr extends StatefulWidget {
     required this.setCountryId,
     required this.setRegionId,
     required this.setCityId,
+    this.subServiceId,
   });
   final String pageName;
 
@@ -171,6 +173,7 @@ class _AppBarrrState extends State<AppBarrr> {
                     : const SizedBox(),
                 widget.enableLocation!
                     ? Searchh(
+                        subServiceId: widget.subServiceId,
                         setCountryId: widget.setCountryId,
                         setCityId: widget.setCityId,
                         setRegionId: widget.setRegionId,

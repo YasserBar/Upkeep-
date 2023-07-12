@@ -149,11 +149,18 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.replay_sharp,
-                                        color: secondryColor,
+                                    CircleAvatar(
+                                      backgroundColor: Colors.blueGrey[50],
+                                      child: IconButton(
+                                        onPressed: () {
+                                          context
+                                              .read<AdsBloc>()
+                                              .add(const GetAllAdsEvent());
+                                        },
+                                        icon: const Icon(
+                                          Icons.replay_sharp,
+                                          color: secondryColor,
+                                        ),
                                       ),
                                     )
                                   ],
@@ -231,11 +238,17 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(
-                                        Icons.replay_sharp,
-                                        color: secondryColor,
+                                    CircleAvatar(
+                                      backgroundColor: Colors.blueGrey[50],
+                                      child: IconButton(
+                                        onPressed: () {
+                                          context.read<CategoriesBloc>().add(
+                                              const GetAllCategoriesEvent());
+                                        },
+                                        icon: const Icon(
+                                          Icons.replay_sharp,
+                                          color: secondryColor,
+                                        ),
                                       ),
                                     )
                                   ],
@@ -331,11 +344,19 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                             textAlign: TextAlign.center,
                                           ),
                                         ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.replay_sharp,
-                                            color: secondryColor,
+                                        CircleAvatar(
+                                          backgroundColor: Colors.blueGrey[50],
+                                          child: IconButton(
+                                            onPressed: () {
+                                              context
+                                                  .read<SubServiceBloc>()
+                                                  .add(GetAllSubServiceEvent(
+                                                      id));
+                                            },
+                                            icon: const Icon(
+                                              Icons.replay_sharp,
+                                              color: secondryColor,
+                                            ),
                                           ),
                                         )
                                       ],
