@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upkeep_plus/core/constants/keys.dart';
+import 'package:upkeep_plus/features/auth/presentation/pages/login_screen.dart';
 import 'main.dart';
 
 import 'core/widgets/navigation_customer.dart';
@@ -22,6 +24,7 @@ class RootScreen extends StatefulWidget {
 class _RootScreenState extends State<RootScreen> {
   String? _token;
   bool? _customer;
+  bool? _firstTime;
 
   @override
   void initState() {
@@ -40,6 +43,7 @@ class _RootScreenState extends State<RootScreen> {
       print("token  $token*************************************************");
     }
     try {
+      _firstTime = di.sl<SharedPreferences>().getBool(FIRST_TIME);
       ResponseAuth responseAuth =
           await di.sl<AuthLocalDataSource>().getCachedResponse();
       _token = responseAuth.token;
@@ -66,8 +70,10 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_token == null) {
+    if (_token == null && _firstTime == null) {
       return const OnboardingScreen();
+    } else if (_token == null && _firstTime == false) {
+      return const LoginScreen();
     } else if (_customer!) {
       return const NavigationCustomer();
     } else {

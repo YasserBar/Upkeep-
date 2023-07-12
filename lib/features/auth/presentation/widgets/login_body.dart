@@ -70,22 +70,22 @@ class _LoginBodyState extends State<LoginBody> {
         }
 
         return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const CostumeAppBarAuth(
-                title: 'قم بتسجيل الدخول الى حسابك',
-              ),
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.8,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const CostumeAppBarAuth(
+                  title: 'قم بتسجيل الدخول إلى حسابك',
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 150,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15,
                       vertical: 10,
                     ),
                     child: Form(
-                      autovalidateMode: AutovalidateMode.always,
                       key: formKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -93,7 +93,7 @@ class _LoginBodyState extends State<LoginBody> {
                           CustomTextFiled(
                             controller: emailController,
                             validator: (value) => validateEmail(value),
-                            title: 'أيميل',
+                            title: 'بريد إلكتروني',
                             hintT: 'example@mail.com',
                             icon: Icons.email_outlined,
                           ),
@@ -170,8 +170,8 @@ class _LoginBodyState extends State<LoginBody> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
