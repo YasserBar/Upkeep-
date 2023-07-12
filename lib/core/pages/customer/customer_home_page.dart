@@ -106,6 +106,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                 child: Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: ListView.builder(
+                                    padding: const EdgeInsets.only(right: 10),
                                     controller: context
                                         .read<AdsBloc>()
                                         .scrollController,
@@ -117,6 +118,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                       if (index < ads.length) {
                                         return AdsWidget(
                                           photo: ads[index].photo,
+                                          title: ads[index].title,
                                           description: ads[index].description,
                                         );
                                       } else {
@@ -193,6 +195,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                 child: Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: ListView.builder(
+                                    padding: const EdgeInsets.only(right: 10),
                                     controller: context
                                         .read<CategoriesBloc>()
                                         .scrollController,
@@ -284,6 +287,7 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
                                       child: Directionality(
                                         textDirection: TextDirection.rtl,
                                         child: ListView.builder(
+                                          padding: const EdgeInsets.only(right: 10),
                                           controller: context
                                               .read<SubServiceBloc>()
                                               .scrollController,

@@ -8,6 +8,7 @@ import '../../../domain/entities/sliders_ads_jobs.dart';
 
 class JobContainer extends StatelessWidget {
   final SlidersAdsJobs job;
+
   const JobContainer({
     super.key,
     required this.job,
@@ -22,7 +23,7 @@ class JobContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(10),
         width: conWidth,
         height: (343 / 358) * conWidth,
         decoration: const BoxDecoration(
@@ -31,7 +32,6 @@ class JobContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 10,),
             // ignore: unnecessary_null_comparison
             job.photo != null
                 ? Container(
@@ -72,16 +72,29 @@ class JobContainer extends StatelessWidget {
               padding: const EdgeInsets.only(right: 10),
               width: textWidth,
               height: (78 / 288) * textWidth,
-              child: AutoSizeText(
-                job.description.toString(),
-                maxFontSize: 14,
-                minFontSize: 2,
-                maxLines: 3,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white),
-                textDirection: TextDirection.rtl,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    job.title,
+                    maxLines: 3,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: secondryColor),
+                  ),
+                  AutoSizeText(
+                    job.description.toString(),
+                    maxFontSize: 14,
+                    minFontSize: 2,
+                    maxLines: 3,
+                    style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white),
+                    textDirection: TextDirection.rtl,
+                  ),
+                ],
               ),
             ),
           ],

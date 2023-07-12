@@ -44,6 +44,7 @@ class JobPage extends StatelessWidget {
                       }
                       return Expanded(
                         child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           controller: context.read<JobBloc>().scrollController,
                           clipBehavior: Clip.none,
                           physics: const BouncingScrollPhysics(),

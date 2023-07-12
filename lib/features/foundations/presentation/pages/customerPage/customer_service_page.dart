@@ -67,6 +67,7 @@ class ServiceProviderPage extends StatelessWidget {
                       }
                       return Expanded(
                         child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           controller: context
                               .read<FilterFoundationsBloc>()
                               .scrollController,

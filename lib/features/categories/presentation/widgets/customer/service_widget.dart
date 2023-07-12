@@ -35,87 +35,85 @@ class ServiceWidget extends StatelessWidget {
     double conWidth = (318 / 390) * width;
     double photoWidth = (143 / 318) * conWidth;
     double textWidth = (148 / 318) * conWidth;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ServiceProviderPage(
-                countryId: countryId,
-                cityId: cityId,
-                regionId: regionId,
-                subServiceId: id,
-                setCountryId: setCountryId,
-                setCityId: setCityId,
-                setRegionId: setRegionId,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          width: conWidth,
-          height: (133 / 318) * conWidth,
-          decoration: const BoxDecoration(
-            color: primaryColor,
-            borderRadius: BorderRadius.all(
-              Radius.circular(35),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ServiceProviderPage(
+              countryId: countryId,
+              cityId: cityId,
+              regionId: regionId,
+              subServiceId: id,
+              setCountryId: setCountryId,
+              setCityId: setCityId,
+              setRegionId: setRegionId,
             ),
           ),
-          child: Row(
-            children: [
-              photo != null
-                  ? Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 6.0),
-                      height: (111 / 143) * photoWidth,
-                      width: photoWidth,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: secondryColor, width: 1),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(30))),
-                      child: CachedNetworkImage(
-                        imageUrl: photo.toString(),
-                        placeholder: (context, url) => const LoadingWidget(),
-                        errorWidget: (context, url, error) =>
-                            // const Icon(Icons.error),
-                            Image.asset(AssetClass.Logo),
-                        fadeOutDuration: const Duration(seconds: 1),
-                        fadeInDuration: const Duration(seconds: 3),
-                      ),
-                    )
-                  : Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
-                      height: (111 / 143) * photoWidth,
-                      width: photoWidth,
-                      decoration: BoxDecoration(
+        );
+      },
+      child: Container(
+        width: conWidth,
+        height: (133 / 318) * conWidth,
+        margin: const EdgeInsets.only(left: 16),
+        decoration: const BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.all(
+            Radius.circular(35),
+          ),
+        ),
+        child: Row(
+          children: [
+            photo != null
+                ? Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
+                    height: (111 / 143) * photoWidth,
+                    width: photoWidth,
+                    decoration: BoxDecoration(
                         color: Colors.white,
-                        image: const DecorationImage(
-                          image: AssetImage(AssetClass.Logo),
-                        ),
                         border: Border.all(color: secondryColor, width: 1),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(30),
-                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30))),
+                    child: CachedNetworkImage(
+                      imageUrl: photo.toString(),
+                      placeholder: (context, url) => const LoadingWidget(),
+                      errorWidget: (context, url, error) =>
+                          // const Icon(Icons.error),
+                          Image.asset(AssetClass.Logo),
+                      fadeOutDuration: const Duration(seconds: 1),
+                      fadeInDuration: const Duration(seconds: 3),
+                    ),
+                  )
+                : Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 8.0),
+                    height: (111 / 143) * photoWidth,
+                    width: photoWidth,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      image: const DecorationImage(
+                        image: AssetImage(AssetClass.Logo),
+                      ),
+                      border: Border.all(color: secondryColor, width: 1),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(30),
                       ),
                     ),
-              Container(
-                margin: const EdgeInsets.only(right: 5, left: 4),
-                width: textWidth,
-                child: AutoSizeText(
-                  description,
-                  maxFontSize: 14,
-                  minFontSize: 10,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
                   ),
-                  textDirection: TextDirection.rtl,
+            Container(
+              margin: const EdgeInsets.only(right: 5, left: 4),
+              width: textWidth,
+              child: AutoSizeText(
+                description,
+                maxFontSize: 14,
+                minFontSize: 10,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
                 ),
+                textDirection: TextDirection.rtl,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
