@@ -75,9 +75,17 @@ class _MyOrderPageState extends State<MyOrderPage> {
                             }),
                       );
                     } else if (state is FailureOrdersCustomerState) {
-                      return Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: Text(state.message));
+                      return Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              state.message,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
                     }
                     return const Center(
                       child: LoadingWidget(

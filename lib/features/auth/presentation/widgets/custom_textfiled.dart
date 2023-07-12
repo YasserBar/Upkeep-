@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/colors.dart';
 
 class CustomTextFiled extends StatelessWidget {
-  const CustomTextFiled(
-      {super.key,
-      this.title,
-      this.icon,
-      this.hintT,
-      this.onChange,
-      this.controller,
-      this.keyboardType,
-      this.validator,
-      this.isPassword = false,
-      this.onTap = null});
+  CustomTextFiled({
+    super.key,
+    this.title,
+    this.icon,
+    this.hintT,
+    this.onChange,
+    this.controller,
+    this.keyboardType,
+    this.validator,
+    this.isPassword = false,
+    this.onTap,
+    this.enableInteractiveSelection,
+    this.readOnly,
+  });
 
   final bool isPassword;
   final String? title;
@@ -24,6 +27,8 @@ class CustomTextFiled extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChange;
   final void Function()? onTap;
+  bool? enableInteractiveSelection;
+  bool? readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +39,13 @@ class CustomTextFiled extends StatelessWidget {
           height: MediaQuery.of(context).size.height * .01,
         ),
         TextFormField(
+          readOnly: readOnly ?? false,
+          enableInteractiveSelection: enableInteractiveSelection,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           obscureText: isPassword,
           validator: validator,
           textAlignVertical: TextAlignVertical.center,
           controller: controller,
-          onChanged: onChange,
           style: const TextStyle(overflow: TextOverflow.clip),
           textAlign: TextAlign.right,
           onTap: onTap,

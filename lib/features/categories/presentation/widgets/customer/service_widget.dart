@@ -64,22 +64,9 @@ class ServiceWidget extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-                  margin: const EdgeInsets.only(right: 10, left: 5),
-                  width: textWidth,
-                  child: AutoSizeText(
-                    description,
-                    maxFontSize: 14,
-                    minFontSize: 10,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
-                    textDirection: TextDirection.rtl,
-                  )),
               photo != null
                   ? Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 6.0),
                       height: (111 / 143) * photoWidth,
                       width: photoWidth,
                       decoration: BoxDecoration(
@@ -98,6 +85,7 @@ class ServiceWidget extends StatelessWidget {
                       ),
                     )
                   : Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 8.0),
                       height: (111 / 143) * photoWidth,
                       width: photoWidth,
                       decoration: BoxDecoration(
@@ -111,6 +99,21 @@ class ServiceWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+              Container(
+                margin: const EdgeInsets.only(right: 5, left: 4),
+                width: textWidth,
+                child: AutoSizeText(
+                  description,
+                  maxFontSize: 14,
+                  minFontSize: 10,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.white,
+                  ),
+                  textDirection: TextDirection.rtl,
+                ),
+              ),
             ],
           ),
         ),

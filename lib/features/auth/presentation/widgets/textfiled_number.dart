@@ -30,6 +30,7 @@ class TexetFiledNumber extends StatelessWidget {
                   borderSide: BorderSide.none,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               hintText: "رقم الهاتف",
+              
               fillColor: Colors.white,
               filled: true,
               prefix: Text(

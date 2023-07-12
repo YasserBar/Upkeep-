@@ -15,7 +15,7 @@ final double vertical;
           height: 30,
           width: 30,
           child: CircularProgressIndicator(
-            color: primaryColor,
+            color: secondryColor,
           ),
         ),
       ),

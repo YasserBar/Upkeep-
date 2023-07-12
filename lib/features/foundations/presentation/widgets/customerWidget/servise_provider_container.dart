@@ -87,7 +87,7 @@ class ServiceProviderContainer extends StatelessWidget {
                       )),
                 ],
               ),
-              const SizedBox(width: 10,),
+              const SizedBox(width: 7),
               // ignore: unnecessary_null_comparison
               photo != null
                   ? Container(
@@ -123,7 +123,7 @@ class ServiceProviderContainer extends StatelessWidget {
                         ),
                       ),
                     ),
-              const SizedBox(width: 10,),
+              const SizedBox(width: 6),
             ],
           ),
         ),

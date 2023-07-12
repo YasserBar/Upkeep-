@@ -21,14 +21,16 @@ class JobPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              const SizedBox(height: 130),
+              const SizedBox(height: 117),
               BlocProvider(
                 create: (_) => di.sl<JobBloc>()..add(const GetAllJobEvent()),
                 child: BlocBuilder<JobBloc, JobState>(
                   builder: (context, state) {
                     if (state is LoadingJobState) {
-                      return const LoadingWidget(
-                        vertical: 200,
+                      return const Center(
+                        child: LoadingWidget(
+                          vertical: 200,
+                        ),
                       );
                     } else if (state is LoadedJobState) {
                       List<SlidersAdsJobs> jobs = state.jobs!;
@@ -54,7 +56,8 @@ class JobPage extends StatelessWidget {
                               return state.loaded
                                   ? const SizedBox()
                                   : Container(
-                                      padding: const EdgeInsets.only(top: 20,bottom: 40),
+                                      padding: const EdgeInsets.only(
+                                          top: 20, bottom: 40),
                                       child: state.hasMore
                                           ? const LoadingWidget(vertical: 0.0)
                                           : const Center(
@@ -67,9 +70,17 @@ class JobPage extends StatelessWidget {
                         ),
                       );
                     } else if (state is FailureJobState) {
-                      return Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          child: Text(state.message));
+                      return Expanded(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              state.message,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
                     }
                     return const LoadingWidget(
                       vertical: 200,

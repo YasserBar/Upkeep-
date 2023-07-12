@@ -68,18 +68,18 @@ class CategoryWidget extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 30),
-              child: AutoSizeText(
-                name,
-                maxFontSize: 16,
-                minFontSize: 1,
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: secondryColor),
-                textDirection: TextDirection.rtl,
-              ),
+            AutoSizeText(
+              name,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxFontSize: 16,
+              minFontSize: 1,
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: secondryColor),
+              textDirection: TextDirection.rtl,
             ),
           ],
         ),

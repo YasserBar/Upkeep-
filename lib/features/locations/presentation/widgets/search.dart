@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/aseets/assets.dart';
-import '../../../../core/helpers/loading_widget.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/entities/country.dart';
 import '../../domain/entities/region.dart';
@@ -16,9 +14,7 @@ class Searchh extends StatefulWidget {
   Function setCountryId;
   Function setRegionId;
   Function setCityId;
-  bool enableLocation;
   Searchh({
-    this.enableLocation = true,
     Key? key,
     required this.setCountryId,
     required this.setRegionId,
@@ -51,45 +47,55 @@ class _SearchhState extends State<Searchh> {
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
-        margin: const EdgeInsets.only(top: 95),
+        margin: const EdgeInsets.only(top: 72),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            widget.enableLocation
-                ? BlocBuilder<GetLocationsBloc, GetLocationsState>(
-                    builder: (context, state) {
-                      if (state is LoadingGetLocationsState) {
-                        return const LoadingWidget();
-                      } else if (state is LoadedGetAllCountryState) {
-                        return buildDropdownButton(
-                          widget.enableLocation,
-                          state.country,
-                          widget.setCountryId,
-                          widget.setRegionId,
-                          widget.setCityId,
-                        );
-                      } else if (state is FailureGetLocationsState) {
-                        return const CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Colors.white,
-                          child: Icon(
-                            Icons.location_off_outlined,
-                            color: primaryColor,
-                          ),
-                        );
-                      }
-                      return const Center(child: Text(""));
-                    },
-                  )
-                : CircleAvatar(
+            BlocBuilder<GetLocationsBloc, GetLocationsState>(
+              builder: (context, state) {
+                if (state is LoadingGetLocationsState) {
+                  return const CircleAvatar(
                     radius: 20,
                     backgroundColor: Colors.white,
-                    child: Image.asset(
-                      AssetClass.Location,
-                      width: 21.82,
-                      height: 29.09,
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(
+                        color: secondryColor,
+                      ),
                     ),
+                  );
+                } else if (state is LoadedGetAllCountryState) {
+                  return buildDropdownButton(
+                    state.country,
+                    widget.setCountryId,
+                    widget.setRegionId,
+                    widget.setCityId,
+                  );
+                } else if (state is FailureGetLocationsState) {
+                  return CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      onPressed: () {
+                        
+                      },
+                      icon: const Icon(
+                        Icons.replay_sharp,
+                        color: secondryColor,
+                      ),
+                    ),
+                  );
+                }
+                return const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  child: Icon(
+                    Icons.location_on_outlined,
+                    color: Colors.black54,
                   ),
+                );
+              },
+            ),
             const SizedBox(width: 10),
             Container(
               width: searchWidth,
@@ -103,6 +109,7 @@ class _SearchhState extends State<Searchh> {
                 child: TextFormField(
                   controller: searchController,
                   readOnly: true,
+                  onTap: () {},
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search),
@@ -126,14 +133,12 @@ class _SearchhState extends State<Searchh> {
   }
 
   Widget buildDropdownButton(
-    bool enableLocation,
     List<Country> countryList,
     Function setCountryId,
     Function setRegionId,
     Function setCityId,
   ) {
     return PopupMenuButton<String>(
-      enabled: enableLocation,
       elevation: 0,
       position: PopupMenuPosition.under,
       itemBuilder: (BuildContext context) {
@@ -215,10 +220,9 @@ class _SearchhState extends State<Searchh> {
                     color: primaryColor,
                   ),
                 )
-              : Image.asset(
-                  AssetClass.Location,
-                  width: 21.82,
-                  height: 29.09,
+              : const Icon(
+                  Icons.location_on_outlined,
+                  color: Colors.black54,
                 ),
         );
       }),

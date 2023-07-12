@@ -67,9 +67,9 @@ class _AppBarrrState extends State<AppBarrr> {
             Stack(
               children: [
                 Container(
-                  height: 117,
+                  height: 90,
                   width: double.infinity,
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0).copyWith(bottom: 6.0),
                   decoration: const BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.only(
@@ -90,7 +90,7 @@ class _AppBarrrState extends State<AppBarrr> {
                 widget.logout
                     ? Positioned(
                         right: 20,
-                        height: 120,
+                        height: 100,
                         child: Builder(builder: (context) {
                           return IconButton(
                             onPressed: () {
@@ -151,7 +151,7 @@ class _AppBarrrState extends State<AppBarrr> {
                 widget.changePassowrd
                     ? Positioned(
                         left: 20,
-                        height: 120,
+                        height: 100,
                         child: IconButton(
                           onPressed: () {
                             globalContext = context;
@@ -169,12 +169,13 @@ class _AppBarrrState extends State<AppBarrr> {
                         ),
                       )
                     : const SizedBox(),
-                Searchh(
-                  enableLocation: widget.enableLocation!,
-                  setCountryId: widget.setCountryId,
-                  setCityId: widget.setCityId,
-                  setRegionId: widget.setRegionId,
-                ),
+                widget.enableLocation!
+                    ? Searchh(
+                        setCountryId: widget.setCountryId,
+                        setCityId: widget.setCityId,
+                        setRegionId: widget.setRegionId,
+                      )
+                    : const SizedBox()
               ],
             ),
           ],

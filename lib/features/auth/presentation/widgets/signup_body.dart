@@ -2,12 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upkeep_plus/features/locations/presentation/bloc/getLocations/get_locations_event.dart';
+import '../../../locations/domain/entities/city.dart';
+import '../../../locations/domain/entities/country.dart';
+import '../../../locations/domain/entities/region.dart';
 import '../widgets/textfiled_full_name.dart';
-import '../../../../core/aseets/assets.dart';
 import '../../../../core/helpers/regex.dart';
 import '../../../../core/helpers/loading_widget.dart';
 import '../../../../core/widgets/dropdown_list.dart';
-import '../../../ads&jobs/domain/entities/country.dart';
 import '../../../locations/presentation/bloc/getLocations/get_locations_bloc.dart';
 import '../../../locations/presentation/bloc/getLocations/get_locations_state.dart';
 import '../../domain/entities/signup.dart';
@@ -18,7 +19,7 @@ import 'custome_appbar_auth.dart';
 import 'custome_button.dart';
 import 'dropdown_item.dart';
 import 'textfiled_number.dart';
-import 'ttime_date_widget.dart';
+import 'date_widget.dart';
 import '../../../../../injection_countainer.dart' as di;
 
 class SignupBody extends StatefulWidget {
@@ -30,24 +31,19 @@ class SignupBody extends StatefulWidget {
 
 class _SignupBodyState extends State<SignupBody> {
   late String selectedGender;
-  void setDate(String date) {
-    // setState(() {
-    dateController.text = date;
-    // });
-  }
-
-  int selectedCity = 0;
+  int? selectedCountryId = 0;
+  int? selectedCityId = 0;
+  int? selectedRegionId = 0;
   final formfey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
-  //////////////????!!
   TextEditingController passwordController = TextEditingController();
-  ////
   TextEditingController phoneController = TextEditingController();
-  ////
   TextEditingController dateController = TextEditingController();
-  ////
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController regionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +55,10 @@ class _SignupBodyState extends State<SignupBody> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => VerifySignupScreen(
-                      email: emailController.text,
-                      password: passwordController.text)),
+                builder: (context) => VerifySignupScreen(
+                    email: emailController.text,
+                    password: passwordController.text),
+              ),
             );
             Navigator.push(
               context,
@@ -128,78 +125,149 @@ class _SignupBodyState extends State<SignupBody> {
                           ),
                           TextFiledFullName(
                             firstController: firstNameController,
-                            lastController: lastNameController,
+                            firstValidator: (value) => validateName(value),
+                          lastController: lastNameController,
+                            lastValidator: (value) => validateLastName(value),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Column(
-                            children: [
-                              const TitleTextFiled(
-                                  title: "تاريخ الميلاد",
-                                  icon: Icons.date_range_outlined),
-                              TimeDatePicker(
-                                setDateController: setDate,
-                              ),
-                            ],
+                          DatePicker(
+                            dateController: dateController,
                           ),
                           const SizedBox(
-                            height: 10,
+                              height: 10,
                           ),
                           Column(
                             children: [
                               const TitleTextFiled(
-                                  title: "الجنس", icon: Icons.male),
+                                  title: "الجنس", icon: Icons.female),
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        .06,
-                                    child: DropdownButtonWidget(
-                                      s: gender,
-                                      title: "اختر الجنس",
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedGender = value;
-                                        });
-                                      },
-                                    )),
+                                child: DropdownButtonWidget(
+                                  s: gender,
+                                  title: "اختر الجنس",
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedGender = value;
+                                    });
+                                  },
+                                ),
                               ),
                             ],
                           ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * .06,
-                              child: BlocBuilder<GetLocationsBloc,
-                                  GetLocationsState>(
-                                builder: (context, state) {
-                                  print(state);
-                                  if (state is LoadedGetAllCountryState) {
-                                    print('aaaaaaaaaaaaaaaaaaaaa');
-                                    return DropdownButtonWidget(
-                                      s: state.country,
-                                      title: "الموقع",
-                                      onChanged: (value) {
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          BlocBuilder<GetLocationsBloc, GetLocationsState>(
+                            builder: (context, state) {
+                              if (state is LoadedGetAllCountryState) {
+                                final selectedCountry =
+                                    state.country.firstWhere(
+                                  (country) => country.id == selectedCountryId,
+                                 orElse: () => Country(id: 1,cities: List.empty(),name: '1'),
+                                );
+
+                                final selectedCity =
+                                    selectedCountry.cities.firstWhere(
+                                  (city) => city.id == selectedCityId,
+                                  orElse: () => City(countryId: 1,id: 1,name: '1',regions: List.empty()),
+                                );
+
+                                final selectedRegion =
+                                    selectedCity.regions.firstWhere(
+                                  (region) => region.id == selectedRegionId,
+                                  orElse: () => const Region(cityId: 1,countryId: 1,id: 1,name: '1'),
+                                );
+
+                                return Column(
+                                  children: [
+                                    PopupMenuButton<int>(
+                                      elevation: 0,
+                                      position: PopupMenuPosition.under,
+                                      itemBuilder: (BuildContext context) {
+                                        return state.country.map((country) {
+                                          return PopupMenuItem(
+                                            value: country.id,
+                                            child: Text(country.name),
+                                          );
+                                        }).toList();
+                                      },
+                                      onSelected: (value) {
                                         setState(() {
-                                          if (value == "دمشق") {
-                                            selectedCity = 1;
-                                          }
-                                          if (value == "حمص") {
-                                            selectedCity = 2;
-                                          } else {
-                                            selectedCity = 3;
-                                          }
+                                          selectedCountryId = value;
+                                          selectedCityId = null;
+                                          selectedRegionId = null;
                                         });
                                       },
-                                    );
-                                  } else if (state
-                                      is FailureGetLocationsState) {
-                                    return (Text(state.message));
-                                  } else {
-                                    return const LoadingWidget();
-                                  }
-                                },
-                              )),
+                                      child: CustomTextFiled(
+                                        title: 'البلد',
+                                        hintT: selectedCountry.name,
+                                        icon: Icons.location_on_outlined,
+                                      ),
+                                    ),
+                                    if (selectedCountry.cities.isNotEmpty)
+                                      PopupMenuButton<int>(
+                                        elevation: 0,
+                                        position: PopupMenuPosition.under,
+                                        itemBuilder: (BuildContext context) {
+                                          return selectedCountry.cities
+                                              .map((city) {
+                                            return PopupMenuItem(
+                                              value: city.id,
+                                              child: Text(city.name),
+                                            );
+                                          }).toList();
+                                        },
+                                        onSelected: (value) {
+                                          setState(() {
+                                            selectedCityId = value;
+                                            selectedRegionId = null;
+                                          });
+                                        },
+                                        child: CustomTextFiled(
+                                          title: 'المدينة',
+                                          hintT: selectedCity.name,
+                                          icon: Icons.location_on_outlined,
+                                        ),
+                                      ),
+                                    if (selectedCity.regions.isNotEmpty)
+                                      PopupMenuButton<int>(
+                                        elevation: 0,
+                                        position: PopupMenuPosition.under,
+                                        itemBuilder: (BuildContext context) {
+                                          return selectedCity.regions
+                                              .map((region) {
+                                            return PopupMenuItem(
+                                              value: region.id,
+                                              child: Text(region.name),
+                                            );
+                                          }).toList();
+                                        },
+                                        onSelected: (value) {
+                                          setState(() {
+                                            selectedRegionId = value;
+                                          });
+                                        },
+                                        child: CustomTextFiled(
+                                          title: 'المنطقة',
+                                          hintT: selectedRegion.name,
+                                          icon: Icons.location_on_outlined,
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              } else if (state is FailureGetLocationsState) {
+                                return Text(state.message);
+                              } else {
+                                return const LoadingWidget();
+                              }
+                            },
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           CustomButton(
                             title1: "انشاء الحساب",
                             title2: " ",
@@ -215,9 +283,9 @@ class _SignupBodyState extends State<SignupBody> {
                                   lName: lastNameController.text,
                                   gender: selectedGender,
                                   dateOfBirth: dateController.text,
-                                  country: selectedCity,
-                                  region: selectedCity,
-                                  city: selectedCity,
+                                  country: selectedCountryId!,
+                                  city: selectedCityId!,
+                                  region: selectedRegionId!,
                                   mobilePhoneNumber:
                                       "+963${phoneController.text}",
                                 )));
@@ -236,28 +304,28 @@ class _SignupBodyState extends State<SignupBody> {
   }
 }
 
-// ignore: unused_element
-Widget _buildDropdownButton(List<Country> countryList) {
-  return PopupMenuButton<String>(
-    elevation: 0,
-    position: PopupMenuPosition.under,
-    itemBuilder: (BuildContext context) {
-      return countryList.map((country) {
-        return PopupMenuItem(
-          value: country.name,
-          child: Text(country.name),
-        );
-      }).toList();
-    },
-    onSelected: (value) {},
-    child: CircleAvatar(
-      radius: 20,
-      backgroundColor: Colors.white,
-      child: Image.asset(
-        AssetClass.Location,
-        width: 21.82,
-        height: 29.09,
-      ),
-    ),
-  );
-}
+// // ignore: unused_element
+// Widget _buildDropdownButton(List<Country> countryList) {
+//   return PopupMenuButton<String>(
+//     elevation: 0,
+//     position: PopupMenuPosition.under,
+//     itemBuilder: (BuildContext context) {
+//       return countryList.map((country) {
+//         return PopupMenuItem(
+//           value: country.name,
+//           child: Text(country.name),
+//         );
+//       }).toList();
+//     },
+//     onSelected: (value) {},
+//     child: CircleAvatar(
+//       radius: 20,
+//       backgroundColor: Colors.white,
+//       child: Image.asset(
+//         AssetClass.Location,
+//         width: 21.82,
+//         height: 29.09,
+//       ),
+//     ),
+//   );
+// }
