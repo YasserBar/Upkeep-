@@ -6,7 +6,6 @@ import 'root_screen.dart';
 import 'core/theme/colors.dart';
 import 'features/ads&jobs/presentation/bloc/add_job_bloc/add_job_bloc.dart';
 import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
-
 import 'features/categories/presentation/bloc/categories/categories_bloc.dart';
 import 'features/categories/presentation/bloc/subservice/subservice_bloc.dart';
 import 'features/locations/presentation/bloc/getLocations/get_locations_bloc.dart';
