@@ -45,7 +45,7 @@ class IncomingRequestShowItem extends StatelessWidget {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: Container(
-                  margin: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(10),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   width: double.infinity,
@@ -65,27 +65,28 @@ class IncomingRequestShowItem extends StatelessWidget {
                           ),
                         ),
                         Container(
+                          alignment: Alignment.topRight,
                           margin: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           child: Text(
                             serviceName,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: secondryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
                           ),
                         ),
                         Align(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.topLeft,
                             child: Container(
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 child: Text(
                                   serviceDate,
                                   style: const TextStyle(
-                                      color: secondryColor,
-                                      fontSize: 17,
+                                      color: Colors.white,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ))),
                         Row(

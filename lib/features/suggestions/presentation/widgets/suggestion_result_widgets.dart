@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/aseets/assets.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/helpers/loading_widget.dart';
 import '../bloc/get_all_my_propose_bloc/get_all_my_propose_bloc.dart';
@@ -68,18 +67,10 @@ class SuggestionResults extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 suggestion.response == "ok"
-                                    ? Image.asset(
-                                        AssetClass.Accepted,
-                                        width: 20,
-                                        height: 20,
-                                      )
+                                    ? const Icon(Icons.event_available,color: Colors.green,)
                                     : suggestion.response != ""
-                                        ? Image.asset(
-                                            AssetClass.Refused,
-                                            width: 20,
-                                            height: 20,
-                                          )
-                                        : const SizedBox(width: 20, height: 20),
+                                        ? const Icon(Icons.event_busy,color: Colors.red,)
+                                        : const Icon(Icons.access_alarms_rounded,color: primaryColor,),
                                 SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.01,

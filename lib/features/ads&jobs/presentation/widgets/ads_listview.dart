@@ -12,7 +12,7 @@ class AdsListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.end,
@@ -33,34 +33,38 @@ class AdsListview extends StatelessWidget {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height * .38,
                   width: double.infinity,
-                  child: ListView.builder(
-                    controller:
-                        context.read<AdsFoundationBloc>().scrollController,
-                    clipBehavior: Clip.none,
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: myAdsFoundations.length + 1,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index < myAdsFoundations.length) {
-                        return AdsItemWidget(
-                          imgUrl: myAdsFoundations[index].photo.toString(),
-                          text: myAdsFoundations[index].description,
-                        );
-                      } else {
-                        return state.loaded
-                            ? const SizedBox()
-                            : Container(
-                                padding:
-                                    const EdgeInsets.only(left: 20,right: 40),
-                                child: state.hasMore
-                                    ? const LoadingWidget(vertical: 0.0)
-                                    : const Center(
-                                        child: Text(
-                                            "لا يوجد المزيد من الاعلانات"),
-                                      ),
-                              );
-                      }
-                    },
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ListView.builder(
+                      controller:
+                          context.read<AdsFoundationBloc>().scrollController,
+                      clipBehavior: Clip.none,
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: myAdsFoundations.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index < myAdsFoundations.length) {
+                          return AdsItemWidget(
+                            imgUrl: myAdsFoundations[index].photo.toString(),
+                            title: myAdsFoundations[index].title,
+                            description: myAdsFoundations[index].description,
+                          );
+                        } else {
+                          return state.loaded
+                              ? const SizedBox()
+                              : Container(
+                                  padding:
+                                      const EdgeInsets.only(left: 20,right: 40),
+                                  child: state.hasMore
+                                      ? const LoadingWidget(vertical: 0.0)
+                                      : const Center(
+                                          child: Text(
+                                              "لا يوجد المزيد من الاعلانات"),
+                                        ),
+                                );
+                        }
+                      },
+                    ),
                   ),
                 );
               } else if (state is LoadingAdsFoundationState) {

@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/aseets/assets.dart';
 import '../../../../../core/theme/colors.dart';
 
 class AdsItemWidget extends StatelessWidget {
-  const AdsItemWidget({Key? key, required this.imgUrl, required this.text})
+  const AdsItemWidget({Key? key, required this.imgUrl, required this.title, required this.description})
       : super(key: key);
   final String imgUrl;
-  final String text;
+  final String title;
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -40,17 +42,25 @@ class AdsItemWidget extends StatelessWidget {
                 ),
               ),
             ),
+            Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(
+                  color: secondryColor,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   child: Text(
-                    text,
+                    description,
                     style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

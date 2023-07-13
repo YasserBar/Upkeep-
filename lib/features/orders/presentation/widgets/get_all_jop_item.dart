@@ -5,10 +5,12 @@ import '../../../../../core/theme/colors.dart';
 
 class GetAllJopFoundationItem extends StatelessWidget {
   const GetAllJopFoundationItem(
-      {Key? key, required this.imgUrl, required this.description})
+      {Key? key, required this.imgUrl, required this.title, required this.description})
       : super(key: key);
   final String imgUrl;
+  final String title;
   final String description;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -21,6 +23,7 @@ class GetAllJopFoundationItem extends StatelessWidget {
           color: primaryColor,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
@@ -38,6 +41,17 @@ class GetAllJopFoundationItem extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Text(
+                title,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    color: secondryColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
             Expanded(
                 child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
@@ -45,7 +59,7 @@ class GetAllJopFoundationItem extends StatelessWidget {
                 description,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
                   overflow: TextOverflow.fade,
                 ),

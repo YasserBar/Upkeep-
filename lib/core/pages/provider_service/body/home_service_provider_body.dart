@@ -13,7 +13,7 @@ class HomeServiceProviderBody extends StatelessWidget {
       children: [
         Column(
           children: [
-            const SizedBox(height: 117),
+            const SizedBox(height: 100),
             Expanded(
               child: CustomScrollView(
                 physics: const BouncingScrollPhysics(),

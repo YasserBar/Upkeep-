@@ -44,6 +44,7 @@ class _ServiceBodyState extends State<ServiceBody> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          const SizedBox(width: 15,),
                           Expanded(
                             child: isClicked
                                 ? CustomServiceButton(
@@ -164,7 +165,7 @@ class _ServiceBodyState extends State<ServiceBody> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                         child: CustomServiceButton(
                             title: "ادارة مؤسساتي",
                             icon: Icons.manage_accounts_outlined,
