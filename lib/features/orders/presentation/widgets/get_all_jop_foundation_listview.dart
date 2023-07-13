@@ -35,34 +35,38 @@ class GetAllJopFoundationListview extends StatelessWidget {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * .3,
                     width: double.infinity,
-                    child: ListView.builder(
-                      controller:
-                          context.read<GetJopFoundationBloc>().scrollController,
-                      clipBehavior: Clip.none,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: myJobFoundations.length + 1,
-                      itemBuilder: (BuildContext context, int index) {
-                        if (index < myJobFoundations.length) {
-                          return GetAllJopFoundationItem(
-                            imgUrl: myJobFoundations[index].photo.toString(),
-                            description: myJobFoundations[index].description,
-                          );
-                        } else {
-                          return state.loaded
-                              ? const SizedBox()
-                              : Container(
-                                  padding:
-                                      const EdgeInsets.only(left: 20,right: 40),
-                                  child: state.hasMore
-                                      ? const LoadingWidget(vertical: 0.0)
-                                      : const Center(
-                                          child: Text(
-                                              "لا يوجد المزيد من فرص العمل"),
-                                        ),
-                                );
-                        }
-                      },
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: ListView.builder(
+                        controller:
+                            context.read<GetJopFoundationBloc>().scrollController,
+                        clipBehavior: Clip.none,
+                        physics: const BouncingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: myJobFoundations.length + 1,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (index < myJobFoundations.length) {
+                            return GetAllJopFoundationItem(
+                              imgUrl: myJobFoundations[index].photo.toString(),
+                              title: myJobFoundations[index].title,
+                              description: myJobFoundations[index].description,
+                            );
+                          } else {
+                            return state.loaded
+                                ? const SizedBox()
+                                : Container(
+                                    padding:
+                                        const EdgeInsets.only(left: 20,right: 40),
+                                    child: state.hasMore
+                                        ? const LoadingWidget(vertical: 0.0)
+                                        : const Center(
+                                            child: Text(
+                                                "لا يوجد المزيد من فرص العمل"),
+                                          ),
+                                  );
+                          }
+                        },
+                      ),
                     ),
                   );
                 } else if (state is ErrorGetJopFoundationState) {

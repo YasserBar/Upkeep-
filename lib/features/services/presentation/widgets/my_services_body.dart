@@ -17,7 +17,7 @@ class MyServicesBody extends StatelessWidget {
         SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 117),
+              const SizedBox(height: 90),
               BlocBuilder<FoundationServicesBloc, FoundationServicesState>(
                 builder: (context, state) {
                   if (state is SuccessFoundationServicesState) {

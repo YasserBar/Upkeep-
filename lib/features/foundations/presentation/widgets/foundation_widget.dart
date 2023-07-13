@@ -11,10 +11,12 @@ class FoundationWidget extends StatelessWidget {
     required this.imgUrl,
     this.onTap,
   });
+
   final String text;
   final String description;
   final String imgUrl;
   final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -30,6 +32,7 @@ class FoundationWidget extends StatelessWidget {
           child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 5),
@@ -71,31 +74,24 @@ class FoundationWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    clipBehavior: Clip.hardEdge,
-                    height: MediaQuery.of(context).size.height * .2,
-                    width: MediaQuery.of(context).size.width * .47,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: secondryColor),
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(100)),
-                    ),
-                    child: Container(
-                      child: imgUrl !=
-                              "http://upkeepplus.tech/jobs_and_service_class_photo"
-                          ? CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: imgUrl,
-                              placeholder: (context, url) =>
-                                  const CircularProgressIndicator(
-                                strokeWidth: 1,
-                              ),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            )
-                          : Image.asset(AssetClass.Ads),
-                    ),
+                  CircleAvatar(
+                    radius: 62,
+                    backgroundColor: secondryColor,
+                    child: imgUrl !=
+                            "http://upkeepplus.tech/jobs_and_service_class_photo"
+                        ? CircleAvatar(
+                            radius: 60,
+                            backgroundImage: CachedNetworkImageProvider(
+                              imgUrl,
+
+                            ),
+                          )
+                        : const CircleAvatar(
+                            radius: 60,
+                            backgroundImage: AssetImage(AssetClass.Ads),
+                          ),
                   ),
+                  const SizedBox(width: 10,)
                 ],
               ),
             ],
