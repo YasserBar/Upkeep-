@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/aseets/assets.dart';
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/helpers/loading_widget.dart';
-import '../../../../services/presentation/pages/customer/service _details_page.dart';
 
 class ServiceProviderContainer extends StatelessWidget {
   final String name;
@@ -29,16 +28,16 @@ class ServiceProviderContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ServiceDetails(
-              name: name,
-              photo: photo,
-              description: description,
-              id: id,
-            ),
-          ),
-        ),
+        // onTap: () => Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => ServiceDetails(
+        //       name: name,
+        //       photo: photo,
+        //       description: description,
+        //       id: id,
+        //     ),
+        //   ),
+        // ),
         child: Container(
           width: conWidth,
           height: (133 / 358) * conWidth,

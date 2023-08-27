@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../features/ads&jobs/presentation/bloc/ads_foundation_bloc/ads_foundation_bloc.dart';
 import '../../../../features/ads&jobs/presentation/bloc/get_jop_foundation_bloc/get_jop_foundation_bloc.dart';
-import '../../../../features/services/presentation/bloc/foundation_services_bloc/foundation_services_bloc.dart';
 import '../../../../main.dart';
 import '../body/home_service_provider_body.dart';
 import '../../../../injection_countainer.dart' as di;
@@ -21,11 +20,11 @@ class _HomeServiceProviderScreenState extends State<HomeServiceProviderScreen> {
     return Scaffold(
       body: MultiBlocProvider(
         providers: [
-          BlocProvider<FoundationServicesBloc>(
-            create: (_) => di.sl<FoundationServicesBloc>()
-              ..add(GetAllServiceForFoundationEvent(
-                  foundationId: globalFoundationId!)),
-          ),
+          // BlocProvider<FoundationServicesBloc>(
+          //   create: (_) => di.sl<FoundationServicesBloc>()
+          //     ..add(GetAllServiceForFoundationEvent(
+          //         foundationId: globalFoundationId!)),
+          // ),
           BlocProvider<AdsFoundationBloc>(
             create: (_) => di.sl<AdsFoundationBloc>()
               ..add(ShowAllAdsForFoundationEvent(id: globalFoundationId!)),

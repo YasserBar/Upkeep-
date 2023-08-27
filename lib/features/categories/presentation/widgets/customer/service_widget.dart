@@ -33,7 +33,7 @@ class ServiceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double conWidth = (318 / 390) * width;
-    double photoWidth = (143 / 318) * conWidth;
+    double photoWidth = (140 / 318) * conWidth;
     double textWidth = (148 / 318) * conWidth;
     return InkWell(
       onTap: () {

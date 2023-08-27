@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:upkeep_plus/features/foundations/presentation/pages/customerPage/foundations_in_system.dart';
 import '../../features/ads&jobs/presentation/pages/customer/job_page.dart';
-import '../../features/foundations/presentation/pages/customerPage/customer_service_page.dart';
 import '../../features/orders/presentation/pages/customer/my_order_page.dart';
 import '../pages/customer/customer_home_page.dart';
 import '../theme/colors.dart';
@@ -43,7 +43,7 @@ class _NavigationCustomerState extends State<NavigationCustomer> {
         setCityId: setCityId,
         setRegionId: setRegionId,
       ),
-      ServiceProviderPage(
+      FoundationsInSystem(
         countryId: countryId,
         cityId: cityId,
         regionId: regionId,

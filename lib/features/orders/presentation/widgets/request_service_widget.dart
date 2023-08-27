@@ -15,22 +15,23 @@ class RequestServiceBody extends StatelessWidget {
   final ServiceFoundation service;
   @override
   Widget build(BuildContext context) {
-    final String serviceName = service.name;
+    final String serviceName = service.service_name;
     return Stack(
       children: [
         Column(
           children: [
-            const SizedBox(height: 117),
+            const SizedBox(height: 90, width: double.infinity),
             SizedBox(
               height: MediaQuery.of(context).size.height * .02,
             ),
             BlocBuilder<GetAllOrdersBloc, GetAllOrdersState>(
               builder: (context, state) {
-                context.read<GetAllOrdersBloc>().id = service.id;
+                context.read<GetAllOrdersBloc>().id = service.foundations_id;
                 if (state is SuccessGetAllOrdersState) {
                   List<MyOrder> myOrders = state.myOrders!;
                   if (myOrders.isEmpty) {
-                    return const Text("لا يوجد طلبات");
+                    return const Expanded(
+                        child: Center(child: Text("لا يوجد طلبات")));
                   }
                   return Expanded(
                     child: ListView.builder(
@@ -73,17 +74,14 @@ class RequestServiceBody extends StatelessWidget {
                                         Align(
                                           alignment: Alignment.topRight,
                                           child: Container(
-                                            margin:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10),
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
                                             child: const Text(
                                               "serviceDate",
                                               style: TextStyle(
                                                   color: secondryColor,
                                                   fontSize: 17,
-                                                  fontWeight:
-                                                      FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                         ),
@@ -113,8 +111,7 @@ class RequestServiceBody extends StatelessWidget {
                                                       const RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.vertical(
-                                                      top:
-                                                          Radius.circular(60),
+                                                      top: Radius.circular(60),
                                                     ),
                                                   ),
                                                   context: context,
@@ -124,19 +121,16 @@ class RequestServiceBody extends StatelessWidget {
                                                       textDirection:
                                                           TextDirection.rtl,
                                                       child: Container(
-                                                        margin:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                vertical: 20,
-                                                                horizontal:
-                                                                    30),
+                                                        margin: const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 20,
+                                                            horizontal: 30),
                                                         child: const Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .start,
                                                           mainAxisSize:
-                                                              MainAxisSize
-                                                                  .min,
+                                                              MainAxisSize.min,
                                                           children: <Widget>[
                                                             Align(
                                                               alignment:
@@ -183,11 +177,11 @@ class RequestServiceBody extends StatelessWidget {
                                                             AcceptRejectedOrderBloc>(
                                                         context)
                                                     .add(RejectedOrderEvent(
-                                                  service.id,
+                                                  service.foundations_id,
                                                 ));
                                               },
-                                              child: Image.asset(
-                                                  AssetClass.False),
+                                              child:
+                                                  Image.asset(AssetClass.False),
                                             ),
                                           ],
                                         )
@@ -202,13 +196,13 @@ class RequestServiceBody extends StatelessWidget {
                           return state.loaded
                               ? const SizedBox()
                               : Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
                                   child: state.hasMore
                                       ? const LoadingWidget()
                                       : const Center(
-                                          child: Text(
-                                              "لا يوجد المزيد من الطلبات"),
+                                          child:
+                                              Text("لا يوجد المزيد من الطلبات"),
                                         ),
                                 );
                         }
@@ -216,11 +210,42 @@ class RequestServiceBody extends StatelessWidget {
                     ),
                   );
                 } else if (state is ErrorGetAllOrdersState) {
-                  return Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      child: Text(state.message));
+                  return Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              state.message,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.blueGrey[50],
+                            child: IconButton(
+                              onPressed: () {
+                                context.read<GetAllOrdersBloc>().add(
+                                      GetAllOrderForServiceEvent(
+                                        id: service.service_id,
+                                      ),
+                                    );
+                              },
+                              icon: const Icon(
+                                Icons.replay_sharp,
+                                color: secondryColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                } else if (state is LoadingGetAllOrdersState) {
+                  return const Expanded(child: Center(child: LoadingWidget()));
                 }
-                return const Center(child: LoadingWidget());
+                return Container();
               },
             ),
           ],

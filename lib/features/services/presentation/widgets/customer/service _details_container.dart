@@ -20,6 +20,7 @@ class ServiceDetailsContainer extends StatelessWidget {
             // margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
             width: photoWidth,
             height: (245 / 357) * photoWidth,
+            clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               color: primaryColor,
               border: Border.all(color: secondryColor, width: 1),
@@ -28,6 +29,7 @@ class ServiceDetailsContainer extends StatelessWidget {
               ),
             ),
             child: CachedNetworkImage(
+              fit: BoxFit.cover,
               imageUrl: photo.toString(),
               placeholder: (context, url) => const LoadingWidget(),
               errorWidget: (context, url, error) =>

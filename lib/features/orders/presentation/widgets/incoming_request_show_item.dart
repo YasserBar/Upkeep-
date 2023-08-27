@@ -157,6 +157,7 @@ class IncomingRequestShowItem extends StatelessWidget {
                                     return Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Container(
+                                        height: 200,
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 20, horizontal: 30),
                                         child: Column(
@@ -173,13 +174,16 @@ class IncomingRequestShowItem extends StatelessWidget {
                                                           FontWeight.bold,
                                                       fontSize: 22),
                                                 )),
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: Text(
-                                                serviceDescription,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 16),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 20.0),
+                                              child: Align(
+                                                alignment: Alignment.topRight,
+                                                child: Text(
+                                                  serviceDescription,
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.w400,
+                                                      fontSize: 16),
+                                                ),
                                               ),
                                             ),
                                           ],

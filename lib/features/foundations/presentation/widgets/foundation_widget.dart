@@ -34,43 +34,48 @@ class FoundationWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    width: MediaQuery.of(context).size.width * .4,
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * .05,
-                            ),
-                            child: RichText(
-                              textDirection: TextDirection.rtl,
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: text,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
+                  Expanded(
+                    child: Container(
+                      margin:
+                          const EdgeInsets.only(top: 5, left: 15, right: 15),
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.of(context).size.width * .05,
+                              ),
+                              child: RichText(
+                                textDirection: TextDirection.rtl,
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: text,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Text(
-                            description,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: secondryColor,
+                            Text(
+                              description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: secondryColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -83,7 +88,6 @@ class FoundationWidget extends StatelessWidget {
                             radius: 60,
                             backgroundImage: CachedNetworkImageProvider(
                               imgUrl,
-
                             ),
                           )
                         : const CircleAvatar(
@@ -91,7 +95,9 @@ class FoundationWidget extends StatelessWidget {
                             backgroundImage: AssetImage(AssetClass.Ads),
                           ),
                   ),
-                  const SizedBox(width: 10,)
+                  const SizedBox(
+                    width: 10,
+                  )
                 ],
               ),
             ],

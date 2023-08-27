@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
+import 'package:upkeep_plus/main.dart';
 import '../../../../core/helpers/loading_widget.dart';
 import '../../../auth/presentation/widgets/title_of_listview.dart';
 import '../../domain/entities/job_ad.dart';
@@ -53,8 +55,8 @@ class AdsListview extends StatelessWidget {
                           return state.loaded
                               ? const SizedBox()
                               : Container(
-                                  padding:
-                                      const EdgeInsets.only(left: 20,right: 40),
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 40),
                                   child: state.hasMore
                                       ? const LoadingWidget(vertical: 0.0)
                                       : const Center(
@@ -70,9 +72,33 @@ class AdsListview extends StatelessWidget {
               } else if (state is LoadingAdsFoundationState) {
                 return const Center(child: LoadingWidget());
               } else if (state is ErrorAdsFoundationState) {
-                return Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    child: Text(state.message));
+                return Center(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Text(
+                          state.message,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      CircleAvatar(
+                        backgroundColor: Colors.blueGrey[50],
+                        child: IconButton(
+                          onPressed: () {
+                            context.read<AdsFoundationBloc>().add(
+                                ShowAllAdsForFoundationEvent(
+                                    id: globalFoundationId!));
+                          },
+                          icon: const Icon(
+                            Icons.replay_sharp,
+                            color: secondryColor,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
               }
               return Container();
             },

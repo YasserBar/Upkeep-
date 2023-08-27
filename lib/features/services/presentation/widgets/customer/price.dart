@@ -8,25 +8,24 @@ class Price extends StatelessWidget {
 
   const Price({
     super.key,
+    required this.price,
   });
+  final int price;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double priceWiddth = (390 / 390) * width;
     return Container(
       width: priceWiddth,
-      // height: (50/390)*priceWiddth,
-
       margin: const EdgeInsets.all(20),
-      child: const AutoSizeText(
-        '250,000 ',
+      child: AutoSizeText(
+        price.toString(),
         maxFontSize: 20,
         minFontSize: 10,
         // maxLines: 2,
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 20, fontWeight: FontWeight.bold, color: secondryColor),
         textAlign: TextAlign.end,
-        textDirection: TextDirection.rtl,
       ),
     );
   }

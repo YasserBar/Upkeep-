@@ -21,9 +21,8 @@ class _RememberMeState extends State<RememberMe> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Text(' تذكرني'),
+        const Text('تذكرني'),
         Checkbox(
           value: widget.isChecked,
           activeColor: primaryColor,

@@ -10,20 +10,20 @@ class AddService extends Equatable {
   final int needActive;
   final String durationWork;
   final int dayAllowed;
-  final String? startSaturday;
-  final String? endSaturday;
-  final String? startSunday;
-  final String? endSunday;
-  final String? startMonday;
-  final String? endMonday;
-  final String? startTuesday;
-  final String? endTuesday;
-  final String? startWednesday;
-  final String? endWednesday;
-  final String? startThursday;
-  final String? endThursday;
-  final String? startFriday;
-  final String? endFriday;
+  final String startSaturday;
+  final String endSaturday;
+  final String startSunday;
+  final String endSunday;
+  final String startMonday;
+  final String endMonday;
+  final String startTuesday;
+  final String endTuesday;
+  final String startWednesday;
+  final String endWednesday;
+  final String startThursday;
+  final String endThursday;
+  final String startFriday;
+  final String endFriday;
 
   const AddService({
     this.id,
@@ -35,20 +35,20 @@ class AddService extends Equatable {
     required this.needActive,
     required this.dayAllowed,
     required this.durationWork,
-    this.startSaturday,
-    this.endSaturday,
-    this.startSunday,
-    this.endSunday,
-    this.startMonday,
-    this.endMonday,
-    this.startTuesday,
-    this.endTuesday,
-    this.startWednesday,
-    this.endWednesday,
-    this.startThursday,
-    this.endThursday,
-    this.startFriday,
-    this.endFriday,
+    required this.startSaturday,
+    required this.endSaturday,
+    required this.startSunday,
+    required this.endSunday,
+    required this.startMonday,
+    required this.endMonday,
+    required this.startTuesday,
+    required this.endTuesday,
+    required this.startWednesday,
+    required this.endWednesday,
+    required this.startThursday,
+    required this.endThursday,
+    required this.startFriday,
+    required this.endFriday,
   });
   @override
   List<Object?> get props {

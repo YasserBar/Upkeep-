@@ -1,14 +1,21 @@
-DateTime? startSut;
-DateTime? endSut;
-DateTime? startSun;
-DateTime? endSun;
-DateTime? startMon;
-DateTime? endMon;
-DateTime? startTus;
-DateTime? endTus;
-DateTime? startWen;
-DateTime? endWen;
-DateTime? starThu;
-DateTime? endThu;
-DateTime? startFri;
-DateTime? endFri;
+const List<String> days = [
+  'س',
+  'أ',
+  'إ',
+  'ث',
+  'أ',
+  'خ',
+  'ج',
+];
+
+const List<String> nameDays = [
+  'السبت',
+  'الأحد',
+  'الاثنين',
+  'الثلاثاء',
+  'الأربعاء',
+  'الخميس',
+  'الجمعة',
+];
+List<DateTime?> startTimes = List.filled(7, null);
+List<DateTime?> endTimes = List.filled(7, null);

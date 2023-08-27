@@ -39,16 +39,18 @@ class _AddJopFoundationState extends State<AddJopFoundation> {
     return BlocConsumer<AddJobBloc, AddJobState>(
       listener: (context, state) {
         if (state is SuccessAddJobState) {
+          Navigator.of(context).pop();
           SnackBarMessage()
               .showSuccessSnackBar(message: state.message, context: context);
         } else if (state is ErrorAddJobState) {
+          Navigator.of(context).pop();
           SnackBarMessage()
               .showErrorSnackBar(message: state.message, context: context);
         }
       },
       builder: (context, state) {
         if (state is LoadingAddJobState) {
-          return const LoadingWidget();
+          return const SizedBox(height: 200.0, child: LoadingWidget());
         }
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -131,8 +133,7 @@ class _AddJopFoundationState extends State<AddJopFoundation> {
                 },
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height *
-                    .10, // Added SizedBox for spacing
+                height: MediaQuery.of(context).size.height * .10,
               ),
             ],
           ),

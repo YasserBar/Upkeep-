@@ -45,13 +45,18 @@ class CategoryWidget extends StatelessWidget {
                             border: Border.all(color: secondryColor, width: 3),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100))),
-                        child: CachedNetworkImage(
-                          imageUrl: photo.toString(),
-                          placeholder: (context, url) => const LoadingWidget(),
-                          errorWidget: (context, url, error) =>
-                              Image.asset(AssetClass.Logo),
-                          fadeOutDuration: const Duration(seconds: 1),
-                          fadeInDuration: const Duration(seconds: 3),
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(100)),
+                          child: CachedNetworkImage(
+                            imageUrl: photo.toString(),
+                            placeholder: (context, url) =>
+                                const LoadingWidget(),
+                            errorWidget: (context, url, error) =>
+                                Image.asset(AssetClass.Logo),
+                            fadeOutDuration: const Duration(seconds: 1),
+                            fadeInDuration: const Duration(seconds: 3),
+                          ),
                         ),
                       )
                     : Container(

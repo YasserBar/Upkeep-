@@ -7,10 +7,10 @@ abstract class EditServiceFoundationEvent extends Equatable {
   const EditServiceFoundationEvent();
 }
 
-class EditServiceForFoundationEvent extends EditServiceFoundationEvent {
+class DoEditServiceForFoundationEvent extends EditServiceFoundationEvent {
   final AddService myService;
 
-  const EditServiceForFoundationEvent(this.myService);
+  const DoEditServiceForFoundationEvent(this.myService);
 
   @override
   List<Object> get props => [myService];

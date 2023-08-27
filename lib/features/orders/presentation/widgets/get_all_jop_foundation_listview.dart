@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
+import 'package:upkeep_plus/main.dart';
 import '../../../../core/helpers/loading_widget.dart';
 import '../../../ads&jobs/domain/entities/job_ad.dart';
 import '../../../ads&jobs/presentation/bloc/get_jop_foundation_bloc/get_jop_foundation_bloc.dart';
@@ -38,8 +40,9 @@ class GetAllJopFoundationListview extends StatelessWidget {
                     child: Directionality(
                       textDirection: TextDirection.rtl,
                       child: ListView.builder(
-                        controller:
-                            context.read<GetJopFoundationBloc>().scrollController,
+                        controller: context
+                            .read<GetJopFoundationBloc>()
+                            .scrollController,
                         clipBehavior: Clip.none,
                         physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
@@ -55,8 +58,8 @@ class GetAllJopFoundationListview extends StatelessWidget {
                             return state.loaded
                                 ? const SizedBox()
                                 : Container(
-                                    padding:
-                                        const EdgeInsets.only(left: 20,right: 40),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 40),
                                     child: state.hasMore
                                         ? const LoadingWidget(vertical: 0.0)
                                         : const Center(
@@ -71,7 +74,31 @@ class GetAllJopFoundationListview extends StatelessWidget {
                   );
                 } else if (state is ErrorGetJopFoundationState) {
                   return Center(
-                    child: Text(state.message),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Text(
+                            state.message,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        CircleAvatar(
+                          backgroundColor: Colors.blueGrey[50],
+                          child: IconButton(
+                            onPressed: () {
+                              context.read<GetJopFoundationBloc>().add(
+                                  ShowAllJopsForFoundationEvent(
+                                      id: globalFoundationId!));
+                            },
+                            icon: const Icon(
+                              Icons.replay_sharp,
+                              color: secondryColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 } else {
                   return const Center(child: LoadingWidget());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:upkeep_plus/core/constants/days_time.dart';
 
 import '../theme/colors.dart';
 import 'time_service_widget.dart';
@@ -8,9 +9,11 @@ class StartEndTimeService extends StatefulWidget {
     Key? key,
     required this.onTimeChangedStart,
     required this.onTimeChangedEnd,
+    required this.index,
   }) : super(key: key);
   final Function(DateTime) onTimeChangedStart;
   final Function(DateTime) onTimeChangedEnd;
+  final int index;
   @override
   // ignore: library_private_types_in_public_api
   _StartEndTimeServiceState createState() => _StartEndTimeServiceState();
@@ -32,11 +35,11 @@ class _StartEndTimeServiceState extends State<StartEndTimeService> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Align(
+        Align(
           alignment: Alignment.bottomRight,
           child: Text(
-            " وقت بدأ انتهاء الخدمة ",
-            style: TextStyle(color: primaryColor),
+            " وقت بدأ وانتهاء الخدمة ليوم ${nameDays[widget.index]}",
+            style: const TextStyle(color: primaryColor),
           ),
         ),
         SizedBox(
@@ -45,8 +48,8 @@ class _StartEndTimeServiceState extends State<StartEndTimeService> {
         Row(
           children: [
             TimeServiceWidget(
+              start: true,
               title: 'يبدأ',
-              hintTime: '12:00PM',
               colorTitle: const Color(0xff0CDC5F),
               onTimeChanged: (dateTime) {
                 setState(() {
@@ -57,8 +60,8 @@ class _StartEndTimeServiceState extends State<StartEndTimeService> {
             ),
             const Spacer(),
             TimeServiceWidget(
+              start: false,
               title: 'ينتهي',
-              hintTime: '2:00Am',
               colorTitle: Colors.red,
               onTimeChanged: (dateTime) {
                 setState(() {
