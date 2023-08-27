@@ -70,108 +70,105 @@ class _LoginBodyState extends State<LoginBody> {
         }
 
         return SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const CostumeAppBarAuth(
-                  title: 'قم بتسجيل الدخول إلى حسابك',
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height - 150,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 10,
-                    ),
-                    child: Form(
-                      key: formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CustomTextFiled(
-                            controller: emailController,
-                            validator: (value) => validateEmail(value),
-                            title: 'بريد إلكتروني',
-                            hintT: 'example@mail.com',
-                            icon: Icons.email_outlined,
-                          ),
-                          CustomTextFiled(
-                            validator: (value) => validatePassword(value),
-                            controller: passwordController,
-                            title: 'كلمة المرور',
-                            hintT: '************',
-                            icon: Icons.lock_outline,
-                          ),
-                          Row(
-                            children: [
-                              const ForgetTextWidget(),
-                              const Spacer(),
-                              RememberMe(
-                                isChecked: rememberMe,
-                                onTap: updateRememberMe,
-                              ),
-                            ],
-                          ),
-                          CustomButton(
-                            title1: 'تسجيل الدخول كزبون',
-                            onPressButton: () {
-                              final isValidForm =
-                                  formKey.currentState!.validate();
-                              if (isValidForm) {
-                                if (kDebugMode) {
-                                  print(emailController.text);
-                                  print(passwordController.text);
-                                  print(rememberMe);
-                                  print('qwe===========================qwe');
-                                }
-                                BlocProvider.of<AuthBloc>(context).add(
-                                  LoginCustomerEvent(
-                                    Login(
-                                      emailController.text,
-                                      passwordController.text,
-                                    ),
-                                    rememberMe,
-                                  ),
-                                );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const CostumeAppBarAuth(
+                title: 'قم بتسجيل الدخول إلى حسابك',
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height - 150,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 10,
+                  ),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CustomTextFiled(
+                          controller: emailController,
+                          validator: (value) => validateEmail(value),
+                          title: 'بريد إلكتروني',
+                          hintT: 'example@mail.com',
+                          icon: Icons.email_outlined,
+                        ),
+                        CustomTextFiled(
+                          validator: (value) => validatePassword(value),
+                          controller: passwordController,
+                          title: 'كلمة المرور',
+                          hintT: '************',
+                          icon: Icons.lock_outline,
+                        ),
+                        Row(
+                          children: [
+                            const ForgetTextWidget(),
+                            const Spacer(),
+                            RememberMe(
+                              isChecked: rememberMe,
+                              onTap: updateRememberMe,
+                            ),
+                          ],
+                        ),
+                        CustomButton(
+                          title1: 'تسجيل الدخول كزبون',
+                          onPressButton: () {
+                            final isValidForm =
+                                formKey.currentState!.validate();
+                            if (isValidForm) {
+                              if (kDebugMode) {
+                                print(emailController.text);
+                                print(passwordController.text);
+                                print(rememberMe);
+                                print('qwe===========================qwe');
                               }
-                            },
-                            title2: '',
-                          ),
-                          CustomButton(
-                            title1: 'تسجيل الدخول كمقدم خدمة',
-                            onPressButton: () {
-                              final isValidForm =
-                                  formKey.currentState!.validate();
-                              if (isValidForm) {
-                                if (kDebugMode) {
-                                  print(emailController.text);
-                                  print(passwordController.text);
-                                  print(rememberMe);
-                                  print('qwe===========================qwe');
-                                }
-                                BlocProvider.of<AuthBloc>(context).add(
-                                  LoginProviderEvent(
-                                    Login(
-                                      emailController.text,
-                                      passwordController.text,
-                                    ),
-                                    rememberMe,
+                              BlocProvider.of<AuthBloc>(context).add(
+                                LoginCustomerEvent(
+                                  Login(
+                                    emailController.text,
+                                    passwordController.text,
                                   ),
-                                );
+                                  rememberMe,
+                                ),
+                              );
+                            }
+                          },
+                          title2: '',
+                        ),
+                        CustomButton(
+                          title1: 'تسجيل الدخول كمقدم خدمة',
+                          onPressButton: () {
+                            final isValidForm =
+                                formKey.currentState!.validate();
+                            if (isValidForm) {
+                              if (kDebugMode) {
+                                print(emailController.text);
+                                print(passwordController.text);
+                                print(rememberMe);
+                                print('qwe===========================qwe');
                               }
-                            },
-                            title2: '',
-                          ),
-                          const DontHaveAccount(),
-                        ],
-                      ),
+                              BlocProvider.of<AuthBloc>(context).add(
+                                LoginProviderEvent(
+                                  Login(
+                                    emailController.text,
+                                    passwordController.text,
+                                  ),
+                                  rememberMe,
+                                ),
+                              );
+                            }
+                          },
+                          title2: '',
+                        ),
+                        const DontHaveAccount(),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

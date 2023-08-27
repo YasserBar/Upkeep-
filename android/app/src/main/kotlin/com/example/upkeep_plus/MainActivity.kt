@@ -1,4 +1,4 @@
-package com.upkeep.up_keep_plus
+package com.example.upkeep_plus
 
 import io.flutter.embedding.android.FlutterActivity
 
