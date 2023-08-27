@@ -147,15 +147,14 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
       textDirection: TextDirection.rtl,
       child: DropdownButtonFormField(
         decoration: const InputDecoration(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.all(
-                Radius.circular(5),
-              )),
-          contentPadding: EdgeInsets.all(10)
-        ),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5),
+                )),
+            contentPadding: EdgeInsets.all(10)),
         hint: Text(
           widget.title,
           style: TextStyle(color: widget.titleColor),

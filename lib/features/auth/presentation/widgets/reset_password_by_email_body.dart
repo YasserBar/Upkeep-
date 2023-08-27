@@ -19,7 +19,7 @@ class ResetPasswordByEmailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is SuccessAuthState) {
+        if (state is SuccessForgetPasswordState) {
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -37,60 +37,52 @@ class ResetPasswordByEmailBody extends StatelessWidget {
           return const LoadingWidget();
         }
 
-        return SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                hasScrollBody: false,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Form(
-                    key: formfey,
-                    autovalidateMode: AutovalidateMode.always,
+        return CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Form(
+                  key: formfey,
+                  autovalidateMode: AutovalidateMode.always,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * .1,
+                    ),
+                    height: MediaQuery.of(context).size.height * .5,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(
-                            vertical: MediaQuery.of(context).size.height * .2,
-                          ),
-                          height: MediaQuery.of(context).size.height * .6,
-                          child: Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const ResetPasswordText(),
-                                CustomTextFiled(
-                                  title: "أيميل",
-                                  hintT: "example@gmail.com",
-                                  icon: Icons.email_outlined,
-                                  controller: emailController,
-                                  validator: (value) => validateEmail(value),
-                                ),
-                                CustomButton(
-                                  title1: "ارسل رمز التحقق",
-                                  title2: "",
-                                  onPressButton: () {
-                                    final isValidForm =
-                                        formfey.currentState!.validate();
-                                    if (isValidForm) {
-                                      BlocProvider.of<AuthBloc>(context)
-                                          .add(ForgetPasswordEvent(
-                                        emailController.text,
-                                      ));
-                                    }
-                                  },
-                                )
-                              ],
-                            ),
-                          ),
+                        const ResetPasswordText(),
+                        CustomTextFiled(
+                          title: "أيميل",
+                          hintT: "example@gmail.com",
+                          icon: Icons.email_outlined,
+                          controller: emailController,
+                          validator: (value) => validateEmail(value),
                         ),
+                        CustomButton(
+                          title1: "أرسل رمز التحقق",
+                          title2: "",
+                          onPressButton: () {
+                            final isValidForm =
+                                formfey.currentState!.validate();
+                            if (isValidForm) {
+                              BlocProvider.of<AuthBloc>(context)
+                                  .add(ForgetPasswordEvent(
+                                emailController.text,
+                              ));
+                            }
+                          },
+                        )
                       ],
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         );
       },
     );

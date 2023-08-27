@@ -25,7 +25,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
         children: [
           Column(
             children: [
-              const SizedBox(height: 80),
+              const SizedBox(height: 90),
               BlocProvider(
                 create: (_) =>
                     di.sl<OrdersCustomerBloc>()..add(const GetAllOrdersEvent()),
@@ -45,7 +45,7 @@ class _MyOrderPageState extends State<MyOrderPage> {
                       }
                       return Expanded(
                         child: ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             controller: context
                                 .read<OrdersCustomerBloc>()
                                 .scrollController,

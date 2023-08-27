@@ -24,10 +24,10 @@ class TitleDetails extends StatelessWidget {
         name,
         maxFontSize: 22,
         minFontSize: 10,
-        maxLines: 2,
+        maxLines: 1,
+      
         style: const TextStyle(
             fontSize: 22, fontWeight: FontWeight.bold, color: primaryColor),
-        textDirection: TextDirection.rtl,
       ),
     );
   }

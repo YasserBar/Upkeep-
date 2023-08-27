@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upkeep_plus/core/theme/colors.dart';
+import 'package:upkeep_plus/features/foundations/presentation/widgets/customerWidget/servicefoundation.dart';
+import 'package:upkeep_plus/features/services/domain/entities/service_foundation.dart';
 import '../../../../../core/pages/pages/empty_pages.dart';
 import '../../../../../core/widgets/loading_widget.dart';
 import '../../../../locations/presentation/widgets/appbar.dart';
 import '../../../domain/entities/filter_foundations.dart';
-import '../../../domain/entities/foundation.dart';
 import '../../bloc/filterFoundations/filter_foundations_bloc.dart';
-import '../../widgets/customerWidget/servise_provider_container.dart';
 import '../../../../../../../injection_countainer.dart' as di;
 
 // ignore: must_be_immutable
@@ -19,8 +19,10 @@ class ServiceProviderPage extends StatelessWidget {
   Function setCountryId;
   Function setRegionId;
   Function setCityId;
+  bool notFoundation;
   ServiceProviderPage({
     super.key,
+    this.notFoundation = true,
     this.countryId,
     this.cityId,
     this.regionId,
@@ -33,9 +35,9 @@ class ServiceProviderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (_) => di.sl<FilterFoundationsBloc>()
+        create: (_) => di.sl<FilterServicesFoundationsBloc>()
           ..add(
-            LoadedFilterFoundationsEvent(
+            LoadedFilterServicesFoundationsEvent(
               filterFoundations: FilterFoundations(
                 countryId: countryId,
                 cityId: cityId,
@@ -49,39 +51,49 @@ class ServiceProviderPage extends StatelessWidget {
             Column(
               children: [
                 const SizedBox(height: 100),
-                BlocBuilder<FilterFoundationsBloc, FilterFoundationsState>(
+                BlocBuilder<FilterServicesFoundationsBloc,
+                    FilterServicesFoundationsState>(
                   builder: (context, state) {
-                    context.read<FilterFoundationsBloc>().filterFoundations =
-                        FilterFoundations(
+                    context
+                        .read<FilterServicesFoundationsBloc>()
+                        .filterServicesFoundations = FilterFoundations(
                       countryId: countryId,
                       cityId: cityId,
                       regionId: regionId,
                       subServiceId: subServiceId,
                     );
-                    if (state is LoadingFilterFoundationsState) {
+                    if (state is LoadingFilterServicesFoundationsState) {
                       return const Center(child: LoadingWidget(vertical: 200));
-                    } else if (state is LoadedFilterFoundationsState) {
-                      List<Foundation> foundations = state.foundations!;
-                      if (foundations.isEmpty) {
-                        return const EmptyPages();
+                    } else if (state is LoadedFilterServicesFoundationsState) {
+                      List<ServiceFoundation> servicefoundations =
+                          state.servicefoundations!;
+                      if (servicefoundations.isEmpty) {
+                        return const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            EmptyPages(),
+                            Text("لا يوجد خدمات"),
+                          ],
+                        );
                       }
                       return Expanded(
                         child: ListView.builder(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           controller: context
-                              .read<FilterFoundationsBloc>()
+                              .read<FilterServicesFoundationsBloc>()
                               .scrollController,
                           clipBehavior: Clip.none,
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: foundations.length + 1,
+                          itemCount: servicefoundations.length + 1,
                           itemBuilder: (context, index) {
-                            if (index < foundations.length) {
-                              return ServiceProviderContainer(
-                                id: foundations[index].id,
-                                name: foundations[index].name,
-                                description: foundations[index].description,
-                                photo: foundations[index].photo,
+                            if (index < servicefoundations.length) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                child: ServicefoundationsDetailsItem(
+                                  service: servicefoundations[index],
+                                ),
                               );
                             } else {
                               return state.loaded
@@ -93,14 +105,14 @@ class ServiceProviderPage extends StatelessWidget {
                                           ? const LoadingWidget(vertical: 0.0)
                                           : const Center(
                                               child: Text(
-                                                  "لا يوجد المزيد من مزودي الخدمة"),
+                                                  "لا يوجد المزيد من الخدمات"),
                                             ),
                                     );
                             }
                           },
                         ),
                       );
-                    } else if (state is FailureFilterFoundationsState) {
+                    } else if (state is FailureFilterServicesFoundationsState) {
                       return Expanded(
                         child: Center(
                           child: Column(
@@ -117,8 +129,10 @@ class ServiceProviderPage extends StatelessWidget {
                                 backgroundColor: Colors.blueGrey[50],
                                 child: IconButton(
                                   onPressed: () {
-                                    context.read<FilterFoundationsBloc>().add(
-                                          LoadedFilterFoundationsEvent(
+                                    context
+                                        .read<FilterServicesFoundationsBloc>()
+                                        .add(
+                                          LoadedFilterServicesFoundationsEvent(
                                             filterFoundations:
                                                 FilterFoundations(
                                               countryId: countryId,
@@ -151,8 +165,8 @@ class ServiceProviderPage extends StatelessWidget {
               right: 0,
               child: AppBarrr(
                 subServiceId: subServiceId,
-                enableLocation: true,
-                pageName: 'مزودي الخدمة',
+                enableLocation: notFoundation,
+                pageName: 'الخدمات',
                 setCountryId: setCountryId,
                 setCityId: setCityId,
                 setRegionId: setRegionId,

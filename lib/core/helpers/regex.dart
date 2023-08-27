@@ -51,3 +51,13 @@ String? validatePassword(String? inputPassword) {
   }
   return null;
 }
+
+
+String? validateConflictPassword(String? inputPassword ,String? pass) {
+  if (inputPassword == null || inputPassword.isEmpty) {
+    return 'تأكيد كلمة المرور مطلوبة';
+  } else if (inputPassword != pass) {
+    return 'لا يوجد تطابق';
+  }
+  return null;
+}

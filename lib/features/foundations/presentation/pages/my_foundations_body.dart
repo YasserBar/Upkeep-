@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
+import 'package:upkeep_plus/core/theme/colors.dart';
 import '../../../../core/helpers/loading_widget.dart';
 import '../../../../core/widgets/navigation_provider.dart';
 import '../../../../main.dart';
@@ -46,92 +47,126 @@ class _MyFoundationsBodyState extends State<MyFoundationsBody> {
         },
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 117, width: double.infinity),
-                  BlocBuilder<GetAllFoundationsBloc, GetAllFoundationsState>(
-                    builder: (context, state) {
-                      if (kDebugMode) {
-                        print("${state.hasMore}&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                      }
-                      if (state is SuccessGetAllFoundationsState) {
-                        List<Foundation> foundations = state.foundations!;
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width * .9,
-                          height: MediaQuery.of(context).size.height * .832,
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            controller: context
-                                .read<GetAllFoundationsBloc>()
-                                .scrollController,
-                            clipBehavior: Clip.none,
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: foundations.length + 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              if (foundations.isEmpty) {
-                                return const Center(
-                                  child: Text("لا يوجد مؤسسات"),
-                                );
-                              } else if (index < foundations.length) {
-                                return Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: FoundationWidget(
-                                    text: foundations[index].name,
-                                    description: foundations[index].description,
-                                    imgUrl: foundations[index].photo,
-                                    onTap: () {
-                                      if (kDebugMode) {
-                                        print(globalFoundationId);
-                                        print(
-                                            "jjjjjjjjjjjjjjjjjj----------------------------------------------------------------------");
-                                      }
-                                      globalFoundationId = foundations[index].id;
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NavigationProvider()),
-                                      );
-                                    },
-                                  ),
-                                );
-                              } else {
-                                return Container(
-                                  padding:
-                                      const EdgeInsets.only(top: 20, bottom: 40),
-                                  child: state.hasMore
-                                      ? const LoadingWidget(vertical: 0.0)
-                                      : const SizedBox(
-                                          height: 30,
-                                          child: Center(
-                                            child: Text(
-                                                "لا يوجد المزيد من المؤسسات"),
-                                          ),
-                                        ),
-                                );
-                              }
-                            },
-                          ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const SizedBox(height: 90, width: double.infinity),
+                BlocBuilder<GetAllFoundationsBloc, GetAllFoundationsState>(
+                  builder: (context, state) {
+                    if (kDebugMode) {
+                      print("${state.hasMore}&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                    }
+                    if (state is SuccessGetAllFoundationsState) {
+                      List<Foundation> foundations = state.foundations!;
+                      if (foundations.isEmpty) {
+                        return const Center(
+                          child: Text("لا يوجد مؤسسات"),
                         );
-                      } else if (state is LoadingGetAllFoundationsState) {
-                        return SizedBox(
-                            width: MediaQuery.of(context).size.width * .9,
-                            height: MediaQuery.of(context).size.height * .615,
-                            child: const LoadingWidget(
-                              vertical: 0.0,
-                            ));
-                      } else {
-                        return Container();
                       }
-                    },
-                  ),
-                ],
-              ),
+                      return Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 15),
+                          controller: context
+                              .read<GetAllFoundationsBloc>()
+                              .scrollController,
+                          clipBehavior: Clip.none,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: foundations.length + 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (index < foundations.length) {
+                              return Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: FoundationWidget(
+                                  text: foundations[index].name,
+                                  description: foundations[index].description,
+                                  imgUrl: foundations[index].photo,
+                                  onTap: () {
+                                    if (kDebugMode) {
+                                      print(globalFoundationId);
+                                      print(
+                                          "jjjjjjjjjjjjjjjjjj----------------------------------------------------------------------");
+                                    }
+                                    globalFoundationId = foundations[index].id;
+                                    isActive = foundations[index].active! == 0
+                                        ? true
+                                        : false;
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavigationProvider()),
+                                    );
+                                  },
+                                ),
+                              );
+                            } else {
+                              return state.loaded
+                                  ? const SizedBox()
+                                  : Container(
+                                      padding: const EdgeInsets.only(
+                                          top: 20, bottom: 40),
+                                      child: state.hasMore
+                                          ? const LoadingWidget(vertical: 0.0)
+                                          : const Center(
+                                              child: Text(
+                                                  "لا يوجد المزيد من المؤسسات"),
+                                            ),
+                                    );
+                            }
+                          },
+                        ),
+                      );
+                    } else if (state is LoadingGetAllFoundationsState) {
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * .9,
+                        height: MediaQuery.of(context).size.height * .8,
+                        child: const LoadingWidget(
+                          vertical: 0.0,
+                        ),
+                      );
+                    } else if (state is ErrorGetAllFoundationsState) {
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * .9,
+                        height: MediaQuery.of(context).size.height * .8,
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Text(
+                                  state.message,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              CircleAvatar(
+                                backgroundColor: Colors.blueGrey[50],
+                                child: IconButton(
+                                  onPressed: () {
+                                    context.read<GetAllFoundationsBloc>().add(
+                                          const GetAllFoundationOwnerEvent(),
+                                        );
+                                  },
+                                  icon: const Icon(
+                                    Icons.replay_sharp,
+                                    color: secondryColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Center(child: Text('asdasdasdasd'));
+                    }
+                  },
+                ),
+              ],
             ),
-           
             Container(
                 margin: const EdgeInsets.only(bottom: 4),
                 child: AppBarrr(

@@ -48,8 +48,8 @@ class ServiceListview extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         if (index < myServices.length) {
                           return ServiceShowWidget(
-                            text: myServices[index].description,
-                            imgUrl: myServices[index].durationWork,
+                            text: myServices[index].services_description,
+                            imgUrl: myServices[index].duration_work,
                           );
                         } else {
                           return state.loaded

@@ -1,17 +1,20 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:upkeep_plus/features/auth/presentation/widgets/custom_textfiled.dart';
 
 class DatePicker extends StatelessWidget {
-  DatePicker({Key? key, required this.dateController}) : super(key: key);
-
+  DatePicker({Key? key, required this.dateController, required this.title})
+      : super(key: key);
+  String title;
   TextEditingController dateController = TextEditingController();
   bool v = false;
   @override
   Widget build(BuildContext context) {
     return CustomTextFiled(
-      title: "تاريخ الميلاد",
+      title: title,
       icon: Icons.date_range_outlined,
       controller: dateController,
       hintT: "YYYY-MM-DD",

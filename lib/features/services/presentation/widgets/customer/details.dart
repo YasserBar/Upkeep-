@@ -26,8 +26,6 @@ class Details extends StatelessWidget {
 
       style: const TextStyle(
           fontSize: 18, fontWeight: FontWeight.w400, color: primaryColor),
-      textAlign: TextAlign.left,
-      textDirection: TextDirection.rtl,
     );
   }
 }

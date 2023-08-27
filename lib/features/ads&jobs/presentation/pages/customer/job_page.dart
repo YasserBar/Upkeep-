@@ -22,7 +22,7 @@ class JobPage extends StatelessWidget {
         children: [
           Column(
             children: [
-              const SizedBox(height: 80),
+              const SizedBox(height: 90),
               BlocProvider(
                 create: (_) => di.sl<JobBloc>()..add(const GetAllJobEvent()),
                 child: BlocBuilder<JobBloc, JobState>(
@@ -37,7 +37,7 @@ class JobPage extends StatelessWidget {
                       List<SlidersAdsJobs> jobs = state.jobs!;
 
                       if (jobs.isEmpty) {
-                        EmptyWidget(
+                        return EmptyWidget(
                           height: height * 0.3 - 37,
                           text: 'لا يوجد فرص عمل',
                         );

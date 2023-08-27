@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upkeep_plus/features/foundations/domain/entities/filter_foundations.dart';
 import 'package:upkeep_plus/features/foundations/presentation/bloc/filterFoundations/filter_foundations_bloc.dart';
+import 'package:upkeep_plus/features/foundations/presentation/bloc/filterFoundationsInSystem/filter_foundations_in_system_bloc.dart';
 import '../../../../core/theme/colors.dart';
 import '../../domain/entities/city.dart';
 import '../../domain/entities/country.dart';
@@ -17,8 +18,10 @@ class Searchh extends StatefulWidget {
   Function setRegionId;
   Function setCityId;
   int? subServiceId;
+  bool filterF;
   Searchh({
     Key? key,
+    required this.filterF,
     required this.setCountryId,
     required this.setRegionId,
     required this.setCityId,
@@ -115,46 +118,95 @@ class _SearchhState extends State<Searchh> {
               ),
               child: Directionality(
                 textDirection: TextDirection.rtl,
-                child: BlocProvider<FilterFoundationsBloc>(
-                  create: (_) => di.sl<FilterFoundationsBloc>(),
-                  child: Stack(
-                    children: [
-                      TextFormField(
-                        scrollController: ScrollController(),
-                        controller: searchController,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: SizedBox(),
-                        ),
-                      ),
-                      Positioned(
-                        right: 0.0,
-                        bottom: 0.0,
-                        child: CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.black12,
-                          child: IconButton(
-                            splashColor: primaryColor,
-                            icon: const Icon(Icons.search, color: primaryColor),
-                            onPressed: () {
-                              context.read<FilterFoundationsBloc>().add(
-                                    LoadedFilterFoundationsEvent(
-                                      filterFoundations: FilterFoundations(
-                                        countryId: countryId,
-                                        cityId: cityId,
-                                        regionId: regionId,
-                                        subServiceId: widget.subServiceId,
-                                      ),
-                                    ),
-                                  );
-                            },
-                          ),
+                child: widget.filterF
+                    ? BlocProvider<FilterFoundationsInSystemBloc>(
+                        create: (_) => di.sl<FilterFoundationsInSystemBloc>(),
+                        child: Stack(
+                          children: [
+                            TextFormField(
+                              scrollController: ScrollController(),
+                              controller: searchController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: SizedBox(),
+                              ),
+                            ),
+                            Positioned(
+                              right: 0.0,
+                              bottom: 0.0,
+                              child: CircleAvatar(
+                                radius: 18,
+                                backgroundColor: Colors.black12,
+                                child: IconButton(
+                                  splashColor: primaryColor,
+                                  icon: const Icon(Icons.search,
+                                      color: primaryColor),
+                                  onPressed: () {
+                                    context
+                                        .read<FilterFoundationsInSystemBloc>()
+                                        .add(
+                                          LoadedFilterFoundationsInSystemEvent(
+                                            filterFoundations:
+                                                FilterFoundations(
+                                              countryId: countryId,
+                                              cityId: cityId,
+                                              regionId: regionId,
+                                              subServiceId: widget.subServiceId,
+                                            ),
+                                          ),
+                                        );
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       )
-                    ],
-                  ),
-                ),
+                    : BlocProvider<FilterServicesFoundationsBloc>(
+                        create: (_) => di.sl<FilterServicesFoundationsBloc>(),
+                        child: Stack(
+                          children: [
+                            TextFormField(
+                              scrollController: ScrollController(),
+                              controller: searchController,
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: SizedBox(),
+                              ),
+                            ),
+                            Positioned(
+                              right: 0.0,
+                              bottom: 0.0,
+                              child: CircleAvatar(
+                                radius: 18,
+                                backgroundColor: Colors.black12,
+                                child: IconButton(
+                                  splashColor: primaryColor,
+                                  icon: const Icon(Icons.search,
+                                      color: primaryColor),
+                                  onPressed: () {
+                                    context
+                                        .read<FilterServicesFoundationsBloc>()
+                                        .add(
+                                          LoadedFilterServicesFoundationsEvent(
+                                            filterFoundations:
+                                                FilterFoundations(
+                                              countryId: countryId,
+                                              cityId: cityId,
+                                              regionId: regionId,
+                                              subServiceId: widget.subServiceId,
+                                            ),
+                                          ),
+                                        );
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
               ),
             ),
           ],

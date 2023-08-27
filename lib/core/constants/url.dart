@@ -9,9 +9,9 @@ class EndPointAuth {
   static const signup = 'register';
   static const verifyPinSignup = 'email/verify';
   static const resendPin = 'resend/email/token';
-
   static const loginCustomer = 'login';
-  static const loginProvider = 'login';
+  static const loginProvider = 'loginFoundation';
+
   static const changePassword = 'changePassword';
   static const logout = 'logout';
 
@@ -22,6 +22,7 @@ class EndPointAuth {
 class EndPointFoundations {
   static const filterFoundations = 'filterWithService';
   static const getAllFoundationsForOwner = 'getAllFoundationForOwner';
+  static const foundationFilter = 'FoundationFilter';
 }
 
 class EndPointServices {
@@ -34,8 +35,8 @@ class EndPointServices {
 }
 
 class EndPointAdsJobs {
-  static const getAdsSliders = 'getAdsAndJobsSliders';
-  static const getJobsSliders = 'getAdsAndJobsSliders';
+  static const getAdsSliders = 'getAdsSliders';
+  static const getJobsSliders = 'getJobSliders';
 
   static const showAllAdsForFoundation = 'showAllAdsForFoundation';
 

@@ -2,6 +2,10 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upkeep_plus/features/foundations/domain/usecases/foundations_in_system_filtering_usecase.dart';
+import 'package:upkeep_plus/features/foundations/domain/usecases/stop_foundation_usecase.dart';
+import 'package:upkeep_plus/features/foundations/presentation/bloc/stop_foundation_bloc/stop_foundation_bloc.dart';
+import 'package:upkeep_plus/features/services/presentation/bloc/stop_service_bloc/stop_service_bloc.dart';
 import 'core/helpers/network_info.dart';
 import 'features/ads&jobs/data/datasources/ads_and_jobs_remote_data_source.dart';
 import 'features/ads&jobs/data/repositories/ads_and_jobs_repo_impl.dart';
@@ -44,6 +48,7 @@ import 'features/foundations/domain/repositories/foundations_repo.dart';
 import 'features/foundations/domain/usecases/filter_foundations_usecase.dart';
 import 'features/foundations/domain/usecases/get_all_foundations_for_owner_usecase.dart';
 import 'features/foundations/presentation/bloc/filterFoundations/filter_foundations_bloc.dart';
+import 'features/foundations/presentation/bloc/filterFoundationsInSystem/filter_foundations_in_system_bloc.dart';
 import 'features/foundations/presentation/bloc/get_all_foundation_bloc/get_all_foundations_bloc.dart';
 import 'features/locations/data/datasources/locations_remote_data_source.dart';
 import 'features/locations/data/repositories/locations_repo_impl.dart';
@@ -196,11 +201,19 @@ Future<void> init() async {
   sl.registerFactory(() => GetAllFoundationsBloc(
         getAllFoundationsForOwnerUsecase: sl(),
       ));
+  sl.registerFactory(() => FilterFoundationsInSystemBloc(
+        filterFoundationsInSystemUsecase: sl(),
+      ));
 
-  sl.registerFactory(() => FilterFoundationsBloc(filterFoundationsUsecase: sl()));
+  sl.registerFactory(() =>
+      FilterServicesFoundationsBloc(filterServicesFoundationsUsecase: sl()));
+
+  sl.registerFactory(() => StopFoundationBloc(stopServiceUsecase: sl()));
 // Usecases
   sl.registerLazySingleton(() => GetAllFoundationsForOwnerUsecase(sl()));
-  sl.registerLazySingleton(() => FilterFoundationsUsecase(sl()));
+  sl.registerLazySingleton(() => FilterServicesFoundationsUsecase(sl()));
+  sl.registerLazySingleton(() => StopFoundationUsecase(sl()));
+  sl.registerLazySingleton(() => FilterFoundationsInSystemUsecase(sl()));
 
 // Repository
   sl.registerLazySingleton<FoundationsRepo>(() => FoundationsRepoImpl(
@@ -213,12 +226,10 @@ Future<void> init() async {
 //! Feature - orders
 
 // Bloc
-  sl.registerFactory(
-          () => OrdersCustomerBloc(getAllOrderUsecase: sl(),
-
-        cancelOrderUsecase:sl(),
+  sl.registerFactory(() => OrdersCustomerBloc(
+        getAllOrderUsecase: sl(),
+        cancelOrderUsecase: sl(),
         setAssessmentUsecase: sl(),
-
       ));
   sl.registerFactory(
       () => OrdersBloc(getAllOrderUsecase: sl(), cancelOrderUsecase: sl()));
@@ -260,6 +271,8 @@ Future<void> init() async {
       ));
   sl.registerFactory(() => EditServiceFoundationBloc(
         editServiceUsecase: sl(),
+      ));
+  sl.registerFactory(() => StopServiceBloc(
         stopServiceUsecase: sl(),
       ));
 // sl.registerFactory(

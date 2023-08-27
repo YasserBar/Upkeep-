@@ -65,8 +65,7 @@ class ServiceRepoImpl extends ServiceRepo {
     );
 
     return await getMessage(() {
-      return remoteDataSource.reservationService(
-          token!, reservationModel);
+      return remoteDataSource.reservationService(token!, reservationModel);
     }, networkInfo);
   }
 
@@ -114,7 +113,7 @@ class ServiceRepoImpl extends ServiceRepo {
       startFriday: addService.startFriday,
       endFriday: addService.endFriday,
     );
-   final Either<Failure, String> getTokenResult = await getToken();
+    final Either<Failure, String> getTokenResult = await getToken();
     getTokenResult.fold(
       (l) {
         return l;
@@ -125,15 +124,15 @@ class ServiceRepoImpl extends ServiceRepo {
     );
 
     return await getMessage(() {
-      return remoteDataSource.addService(
-          token!, addServiceModel);
+      return remoteDataSource.addService(token!, addServiceModel);
     }, networkInfo);
   }
 
   @override
   Future<Either<Failure, Unit>> editService(AddService editService) async {
     AddServiceModel editServiceModel = AddServiceModel(
-      id: editService.id,
+      foundationId: editService.foundationId,
+      serviceId: editService.serviceId,
       description: editService.description,
       serviceCost: editService.serviceCost,
       numberOfResource: editService.numberOfResource,
@@ -166,14 +165,13 @@ class ServiceRepoImpl extends ServiceRepo {
     );
 
     return await getMessage(() {
-      return remoteDataSource.editService(
-          token!, editServiceModel);
+      return remoteDataSource.editService(token!, editServiceModel);
     }, networkInfo);
   }
 
   @override
   Future<Either<Failure, Unit>> stopService(int id) async {
-   final Either<Failure, String> getTokenResult = await getToken();
+    final Either<Failure, String> getTokenResult = await getToken();
     getTokenResult.fold(
       (l) {
         return l;

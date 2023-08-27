@@ -13,6 +13,8 @@ import 'injection_countainer.dart' as di;
 
 String? token;
 int? globalFoundationId;
+bool? isActive;
+
 late BuildContext globalContext;
 
 void main() async {

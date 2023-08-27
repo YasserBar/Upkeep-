@@ -40,16 +40,18 @@ class _ProposeServiceState extends State<ProposeService> {
     return BlocConsumer<ProposeNewServiceBloc, ProposeNewServiceState>(
       listener: (context, state) {
         if (state is SuccessProposeNewServiceState) {
+          Navigator.of(context).pop();
           SnackBarMessage()
               .showSuccessSnackBar(message: state.message, context: context);
         } else if (state is ErrorProposeNewServiceState) {
+          Navigator.of(context).pop();
           SnackBarMessage()
               .showErrorSnackBar(message: state.message, context: context);
         }
       },
       builder: (context, state) {
         if (state is LoadingProposeNewServiceState) {
-          return const LoadingWidget();
+          return const SizedBox(height: 200.0, child: LoadingWidget());
         }
         return Directionality(
           textDirection: TextDirection.rtl,
@@ -96,7 +98,31 @@ class _ProposeServiceState extends State<ProposeService> {
                         ),
                       );
                     } else if (state is FailureCategoriesState) {
-                      return Text(state.message);
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text(
+                              state.message,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.blueGrey[50],
+                            child: IconButton(
+                              onPressed: () {
+                                context.read<CategoriesBloc>().add(
+                                      const GetAllCategoriesEvent(),
+                                    );
+                              },
+                              icon: const Icon(
+                                Icons.replay_sharp,
+                                color: secondryColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      );
                     }
                     return const LoadingWidget();
                   },

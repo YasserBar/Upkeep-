@@ -1,38 +1,38 @@
 part of 'filter_foundations_bloc.dart';
 
-abstract class FilterFoundationsState extends Equatable {
-  final List<Foundation>? foundations;
+abstract class FilterServicesFoundationsState extends Equatable {
+  final List<ServiceFoundation>? servicefoundations;
   final bool hasMore;
   final bool loaded;
-  const FilterFoundationsState(this.foundations, this.hasMore, this.loaded);
+  const FilterServicesFoundationsState(this.servicefoundations, this.hasMore, this.loaded);
 
   @override
-  List<Object> get props => [foundations!, hasMore, loaded];
+  List<Object> get props => [servicefoundations!, hasMore, loaded];
 }
 
-class FilterFoundationsInitial extends FilterFoundationsState {
+class FilterFoundationsInitial extends FilterServicesFoundationsState {
   const FilterFoundationsInitial(
-      super.foundations, super.hasMore, super.loaded);
+      super.servicefoundations, super.hasMore, super.loaded);
 }
 
-class LoadingFilterFoundationsState extends FilterFoundationsState {
-  const LoadingFilterFoundationsState(
-      super.foundations, super.hasMore, super.loaded);
+class LoadingFilterServicesFoundationsState extends FilterServicesFoundationsState {
+  const LoadingFilterServicesFoundationsState(
+      super.servicefoundations, super.hasMore, super.loaded);
 }
 
-class FailureFilterFoundationsState extends FilterFoundationsState {
+class FailureFilterServicesFoundationsState extends FilterServicesFoundationsState {
   final String message;
 
-  const FailureFilterFoundationsState({required this.message})
+  const FailureFilterServicesFoundationsState({required this.message})
       : super(null, false, true);
   @override
   List<Object> get props => [message];
 }
 
-class LoadedFilterFoundationsState extends FilterFoundationsState {
-  const LoadedFilterFoundationsState(
+class LoadedFilterServicesFoundationsState extends FilterServicesFoundationsState {
+  const LoadedFilterServicesFoundationsState(
       {required foundations, required hasMore, required loaded})
       : super(foundations, hasMore, loaded);
   @override
-  List<Object> get props => [foundations!, hasMore, loaded];
+  List<Object> get props => [servicefoundations!, hasMore, loaded];
 }

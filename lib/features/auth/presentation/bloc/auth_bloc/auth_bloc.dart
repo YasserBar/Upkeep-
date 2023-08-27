@@ -65,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final failureOrDoneMessage = await signupUsecase(event.signup);
 
         emit(
-          _eitherDoneMessageOrErrorStateUnit(
+          _eitherDoneMessageOrErrorStateSignupUnit(
               failureOrDoneMessage, Success_MESSAGE),
         );
       } else if (event is VerifyPinSignupEvent) {
@@ -75,7 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             event.verifyPinSignup, event.rememberMe);
 
         emit(
-          _eitherDoneMessageOrErrorStateResponse(
+          _eitherDoneMessageOrErrorStateVerifyPinSignupResponse(
               failureOrDoneMessage, Success_MESSAGE),
         );
       } else if (event is VerifyPinForgetEvent) {
@@ -85,7 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             event.verifyPinForget, event.rememberMe);
 
         emit(
-          _eitherDoneMessageOrErrorStateResponse(
+          _eitherDoneMessageOrErrorStateVerifyPinForgetResponse(
               failureOrDoneMessage, Success_MESSAGE),
         );
       } else if (event is ForgetPasswordEvent) {
@@ -94,7 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final failureOrDoneMessage = await forgetPasswordUsecase(event.email);
 
         emit(
-          _eitherDoneMessageOrErrorStateUnit(
+          _eitherDoneMessageOrErrorStateForgetPasswordUnit(
               failureOrDoneMessage, Success_MESSAGE),
         );
       } else if (event is ResendPinEvent) {
@@ -103,7 +103,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final failureOrDoneMessage = await resendPinUsecase(event.email);
 
         emit(
-          _eitherDoneMessageOrErrorStateUnit(
+          _eitherDoneMessageOrErrorStateResendPinUnit(
               failureOrDoneMessage, Success_MESSAGE),
         );
       }
@@ -120,23 +120,63 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  AuthState _eitherDoneMessageOrErrorStateUnit(
+  AuthState _eitherDoneMessageOrErrorStateSignupUnit(
       Either<Failure, Unit> either, String message) {
     return either.fold(
       (failure) => ErrorAuthState(
         message: mapFailureToMessage(failure),
       ),
-      (responseAuth) => SuccessAuthState(message: message),
+      (responseAuth) => SuccessSignupState(message: message),
     );
   }
-}
 
-AuthState _eitherDoneMessageOrErrorStateResponseProvider(
-    Either<Failure, ResponseAuth> either, String message) {
-  return either.fold(
-    (failure) => ErrorAuthState(
-      message: mapFailureToMessage(failure),
-    ),
-    (responseAuth) => SuccessAuthProviderState(message: message),
-  );
+  AuthState _eitherDoneMessageOrErrorStateForgetPasswordUnit(
+      Either<Failure, Unit> either, String message) {
+    return either.fold(
+      (failure) => ErrorAuthState(
+        message: mapFailureToMessage(failure),
+      ),
+      (responseAuth) => SuccessForgetPasswordState(message: message),
+    );
+  }
+
+  AuthState _eitherDoneMessageOrErrorStateResendPinUnit(
+      Either<Failure, Unit> either, String message) {
+    return either.fold(
+      (failure) => ErrorAuthState(
+        message: mapFailureToMessage(failure),
+      ),
+      (responseAuth) => SuccessResendPinState(message: message),
+    );
+  }
+
+  AuthState _eitherDoneMessageOrErrorStateVerifyPinSignupResponse(
+      Either<Failure, ResponseAuth> either, String message) {
+    return either.fold(
+      (failure) => ErrorAuthState(
+        message: mapFailureToMessage(failure),
+      ),
+      (responseAuth) => SuccessVerifyPinSignupState(message: message),
+    );
+  }
+
+  AuthState _eitherDoneMessageOrErrorStateVerifyPinForgetResponse(
+      Either<Failure, ResponseAuth> either, String message) {
+    return either.fold(
+      (failure) => ErrorAuthState(
+        message: mapFailureToMessage(failure),
+      ),
+      (responseAuth) => SuccessVerifyPinForgetState(message: message),
+    );
+  }
+
+  AuthState _eitherDoneMessageOrErrorStateResponseProvider(
+      Either<Failure, ResponseAuth> either, String message) {
+    return either.fold(
+      (failure) => ErrorAuthState(
+        message: mapFailureToMessage(failure),
+      ),
+      (responseAuth) => SuccessAuthProviderState(message: message),
+    );
+  }
 }

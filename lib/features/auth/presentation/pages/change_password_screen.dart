@@ -7,7 +7,7 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: const Color(0xffe4e4e4),
       body: ChangePasswordBody(),
     );

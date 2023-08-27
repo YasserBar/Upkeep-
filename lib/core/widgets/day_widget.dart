@@ -26,16 +26,16 @@ class _DayWidgetState extends State<DayWidget> {
         decoration: BoxDecoration(
           color: widget.isClicked ? primaryColor : Colors.white,
           border: Border.all(color: secondryColor),
-          borderRadius: const BorderRadius.all(Radius.circular(100)),
+          borderRadius: BorderRadius.circular(90),
         ),
-        height: MediaQuery.of(context).size.height * .05,
+        height: MediaQuery.of(context).size.width * .1,
         width: MediaQuery.of(context).size.width * .1,
         child: Align(
           alignment: Alignment.center,
           child: Text(
             widget.title,
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: widget.isClicked ? Colors.white : primaryColor,
             ),

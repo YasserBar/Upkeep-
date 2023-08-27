@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:upkeep_plus/core/constants/keys.dart';
 import 'package:upkeep_plus/core/helpers/snackbar_message.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../main.dart';
@@ -23,7 +24,9 @@ class AppBarrr extends StatefulWidget {
   bool logout;
   bool changePassowrd;
   int? subServiceId;
+  bool filterF;
   AppBarrr({
+    this.filterF = false,
     this.enableLocation = false,
     this.logout = false,
     this.changePassowrd = false,
@@ -52,11 +55,11 @@ class _AppBarrrState extends State<AppBarrr> {
               print(
                   "==============================logout========================");
             }
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginScreen()),
-              (Route<dynamic> route) => false,
-            );
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const LoginScreen()),
+            //   (Route<dynamic> route) => false,
+            // );
             await di.sl<SharedPreferences>().clear();
             await di.sl<AuthLocalDataSource>().removeCachedResponse();
           } else if (state is ErrorChangePasswordLogoutState) {
@@ -120,6 +123,20 @@ class _AppBarrrState extends State<AppBarrr> {
                                                             ChangePasswordLogoutBloc>()
                                                         .add(
                                                             const LogoutEvent());
+                                                    di.sl<SharedPreferences>()
+                                                      ..remove(CUSTOMER)
+                                                      ..remove(CACHED_RESPONSE);
+                                                    token = null;
+                                                    globalFoundationId = null;
+                                                    Navigator
+                                                        .pushAndRemoveUntil(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              const LoginScreen()),
+                                                      (Route<dynamic> route) =>
+                                                          false,
+                                                    );
                                                   },
                                                   child: const Text(
                                                       'تسجيل الخروج'),
@@ -173,6 +190,7 @@ class _AppBarrrState extends State<AppBarrr> {
                     : const SizedBox(),
                 widget.enableLocation!
                     ? Searchh(
+                        filterF: widget.filterF,
                         subServiceId: widget.subServiceId,
                         setCountryId: widget.setCountryId,
                         setCityId: widget.setCityId,
